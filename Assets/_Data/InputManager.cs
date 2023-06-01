@@ -7,9 +7,9 @@ public class InputManager : LoboMonoBehaviour
     private static InputManager _instance;
     public static InputManager Instance => _instance;
 
-    [SerializeField] protected float pressHorizontal;
-    [SerializeField] protected float pressVertical;
-    [SerializeField] protected float pressSpace;
+    [SerializeField] public float pressHorizontal;
+    [SerializeField] public float pressVertical;
+    [SerializeField] public float pressSpace;
     protected override void Awake()
     {
         base.Awake();

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerMovement : BaseMovement
 {
@@ -9,35 +6,30 @@ public class PlayerMovement : BaseMovement
 
     [SerializeField] protected float runSpeed = 1f;
     [SerializeField] protected float horizontalMove;
-    [SerializeField] protected bool jump = false;
+    [SerializeField] protected float verticalMove;
     protected virtual void FixedUpdate()
     {
-        float moveDirection = horizontalMove * runSpeed;
-        Vector3 move = new Vector3(moveDirection, 0f, 0f);
+        this.GetInput();
+        this.Moving();
+        this.HorizontalRotate();
+    }
+    protected virtual void GetInput()
+    {
+        this.horizontalMove = InputManager.Instance.pressHorizontal;
+        this.verticalMove = InputManager.Instance.pressVertical;
+    }
+    protected virtual void Moving()
+    {
+        Vector3 move = new Vector3(horizontalMove, verticalMove, 0f) * this.runSpeed;
         controller.Move(move * Time.fixedDeltaTime);
-        this.jump = false;
-
-        this.RotateCharacter(moveDirection);
     }
-    protected virtual void Update()
+    protected virtual void HorizontalRotate()
     {
-        this.horizontalMove = Input.GetAxisRaw("Horizontal");
-
-        this.animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            this.jump = true;
-            animator.SetBool("IsJumping", true);
-        }
-    }
-    protected virtual void RotateCharacter(float moveDirection)
-    {
-        if (moveDirection > 0)
+        if (this.horizontalMove > 0)
         {
             transform.parent.localScale = new Vector3(-1f, 1f, 1f);
         }
-        else if (moveDirection < 0)
+        else if (this.horizontalMove < 0)
         {
             transform.parent.localScale = new Vector3(1f, 1f, 1f);
         }
