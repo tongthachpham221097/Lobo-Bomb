@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class InputManager : LoboMonoBehaviour
 {
-    private static InputManager _instance;
-    public static InputManager Instance => _instance;
+    public static InputManager instance;
 
     [SerializeField] public float pressHorizontal;
     [SerializeField] public float pressVertical;
@@ -13,7 +12,7 @@ public class InputManager : LoboMonoBehaviour
     protected override void Awake()
     {
         base.Awake();
-        InputManager._instance = this;
+        InputManager.instance = this;
     }
     protected virtual void Update()
     {
