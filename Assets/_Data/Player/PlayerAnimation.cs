@@ -13,21 +13,21 @@ public class PlayerAnimation : LoboMonoBehaviour
     }
     protected virtual void WalkHorizontal()
     {
-        this.walkHorizontal = InputManager.instance.pressHorizontal;
-        PlayerCtrl.instance.Animator.SetFloat("speed", Mathf.Abs(walkHorizontal));
+        this.walkHorizontal = InputManager.Instance.pressHorizontal;
+        PlayerCtrl.Instance.Animator.SetFloat("speed", Mathf.Abs(walkHorizontal));
     }
     protected virtual void WalkVertical()
     {
-        this.walkVertical = InputManager.instance.pressVertical;
+        this.walkVertical = InputManager.Instance.pressVertical;
         if (this.walkVertical >= 0) this.WalkUp();
         if (this.walkVertical <= 0) this.WalkDown();
     }
     protected virtual void WalkUp()
     {
-        PlayerCtrl.instance.Animator.SetFloat("walkUp", Mathf.Abs(walkVertical));
+        PlayerCtrl.Instance.Animator.SetFloat("walkUp", Mathf.Abs(walkVertical));
     }
     protected virtual void WalkDown()
     {
-        PlayerCtrl.instance.Animator.SetFloat("walkDown", Mathf.Abs(walkVertical));
+        PlayerCtrl.Instance.Animator.SetFloat("walkDown", Mathf.Abs(walkVertical));
     }
 }
