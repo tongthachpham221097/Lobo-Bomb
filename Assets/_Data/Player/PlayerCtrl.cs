@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerCtrl : LoboMonoBehaviour
 {
-    public static PlayerCtrl instance;
+    private static PlayerCtrl _instance;
+    public static PlayerCtrl Instance => _instance;
 
     [SerializeField] protected CharacterController characterController;
     public CharacterController CharacterController => characterController;
@@ -20,7 +21,8 @@ public class PlayerCtrl : LoboMonoBehaviour
     protected override void Awake()
     {
         base.Awake();
-        PlayerCtrl.instance = this;
+        if (PlayerCtrl._instance != null) Debug.LogError("only 1 PlayerCtrl allow to exist");
+        PlayerCtrl._instance = this;
     }
     protected override void LoadComponents()
     {
