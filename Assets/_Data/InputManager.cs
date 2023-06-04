@@ -9,7 +9,7 @@ public class InputManager : LoboMonoBehaviour
 
     [SerializeField] public float pressHorizontal;
     [SerializeField] public float pressVertical;
-    [SerializeField] public float pressSpace;
+    [SerializeField] public bool pressSpace;
     protected override void Awake()
     {
         base.Awake();
@@ -24,6 +24,6 @@ public class InputManager : LoboMonoBehaviour
     {
         this.pressHorizontal = Input.GetAxisRaw("Horizontal");
         this.pressVertical = Input.GetAxisRaw("Vertical");
-        this.pressSpace = Input.GetAxisRaw("Jump");
+        this.pressSpace = Input.GetButtonDown("Jump");
     }
 }
