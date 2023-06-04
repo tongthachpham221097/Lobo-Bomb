@@ -3,44 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BombSpawner : LoboMonoBehaviour
+public class BombSpawner : Spawner
 {
-    public Tilemap tilemap;
-    public GameObject bombPrefab;
+    private static BombSpawner _instance;
+    public static BombSpawner Instance => _instance;
 
-    protected override void LoadComponents()
+    public static string bomb1 = "Bomb_1";
+
+    protected override void Awake()
     {
-        base.LoadComponents();
-        this.LoadBombPrefab();
-        //this.LoadTilemap();
+        base.Awake();
+        if (BombSpawner._instance != null) Debug.LogError("only 1 BombSpawner allow to exist");
+        BombSpawner._instance = this;
+    }
+    protected virtual void Update()
+    {
+        this.BombSpawning();
     }
 
-    void LoadBombPrefab()
+    protected virtual void BombSpawning()
     {
-        if (this.bombPrefab != null) return;
-        this.bombPrefab = GameObject.Find("BombPrefab");
-        this.bombPrefab.SetActive(false);
-        Debug.LogWarning(transform.name + ": LoadBombPrefab", gameObject);
-    }
+        if (!InputManager.Instance.pressSpace) return;
 
-    //void LoadTilemap()
-    //{
-    //    if (this.tilemap != null) return;
-    //    this.tilemap = GameObject.Find("Tilemap-BackGround");
-    //    this.bombPrefab.SetActive(false);
-    //    Debug.LogWarning(transform.name + ": LoadBombPrefab", gameObject);
-    //}
+        Vector3 pos = PlayerCtrl.Instance.AvatarCtrl.transform.position;
 
-    private void Update()
-    {
-        if (InputManager.Instance.pressSpace == 1) this.SpawnBomb();
-    }
-    void SpawnBomb()
-    {
-        Vector3Int cell = tilemap.WorldToCell(PlayerCtrl.Instance.transform.position);
-        Vector3 cellCenter = tilemap.WorldToCell(cell);
+        Quaternion rot = transform.rotation;
 
-        Instantiate(this.bombPrefab, cellCenter, Quaternion.identity);
-        this.bombPrefab.SetActive(true);
+        Transform prefab = this.RandomPrefab();
+        Transform obj = this.Spawn(prefab, pos, rot);
+        obj.gameObject.SetActive(true);
     }
 }
