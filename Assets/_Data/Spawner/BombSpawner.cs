@@ -5,14 +5,23 @@ using UnityEngine.Tilemaps;
 
 public class BombSpawner : Spawner
 {
+    private static BombSpawner _instance;
+    public static BombSpawner Instance => _instance;
+
     public static string bomb1 = "Bomb_1";
 
+    protected override void Awake()
+    {
+        base.Awake();
+        if (BombSpawner._instance != null) Debug.LogError("only 1 BombSpawner allow to exist");
+        BombSpawner._instance = this;
+    }
     protected virtual void Update()
     {
-        this.ObstacleSpawning();
+        this.BombSpawning();
     }
 
-    protected virtual void ObstacleSpawning()
+    protected virtual void BombSpawning()
     {
         if (!InputManager.Instance.pressSpace) return;
 
