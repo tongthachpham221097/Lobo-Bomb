@@ -1,12 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using static UnityEditor.PlayerSettings;
 
 public class BombDespawn : LoboMonoBehaviour
 {
     [SerializeField] protected float timeDelayDespawn = 1f;
-    [SerializeField] protected int fireLength = 1;
+    [SerializeField] protected int fireLength = 2;
 
     private void OnEnable()
     {
@@ -44,4 +45,29 @@ public class BombDespawn : LoboMonoBehaviour
         Transform obj = FXSpawner.Instance.Spawn(prefab, pos, transform.rotation);
         obj.gameObject.SetActive(true);
     }
+
+    //void CheckTileMap()
+    //{
+    //    Vector3 playerPosition = PlayerCtrl.Instance.AvatarCtrl.transform.position;
+
+    //    Tilemap wallTilemap = GameObject.Find("Tilemap-Walls").GetComponent<Tilemap>();
+
+    //    Vector3Int closestTilePosition = wallTilemap.ClosestTileWorldLocation(playerPosition);
+
+    //    // Lấy TileBase (ô tile) tại vị trí đó
+    //    TileBase closestTile = wallTilemap.GetTile(closestTilePosition);
+
+    //    if (closestTile != null)
+    //    {
+    //        // Ô tile tại vị trí đó tồn tại trong bức tường
+    //        // Thực hiện xử lý tương ứng
+    //        Debug.Log("Player is close to a wall tile.");
+    //    }
+    //    else
+    //    {
+    //        // Ô tile tại vị trí đó không tồn tại trong bức tường
+    //        // Thực hiện xử lý tương ứng
+    //        Debug.Log("Player is not close to a wall tile.");
+    //    }
+    //}
 }
