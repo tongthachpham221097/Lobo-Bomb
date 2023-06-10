@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Wall-Tilemap
+    uniqueID: 3038241251
+    locked: 0
+  - name: Player
+    uniqueID: 2380353791
+    locked: 0
