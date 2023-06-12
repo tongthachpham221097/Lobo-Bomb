@@ -25,15 +25,28 @@ public class FXSpawner : Spawner
         for (int i = 1; i <= this.fireLength; i++)
         {
             Vector3 pos = bombpos + new Vector3(i, 0, 0);
+            //if (CheckTilemapWall()) break;
             this.SpawnFX(pos);
+        }
 
+        for(int i = 1; i <= this.fireLength; i++)
+        {
             Vector3 pos2 = bombpos + new Vector3(0, i, 0);
+            //if (CheckTilemapWall()) break;
             this.SpawnFX(pos2);
+        }
 
+        for (int i = 1; i <= this.fireLength; i++)
+        {
             Vector3 pos3 = bombpos + new Vector3(-i, 0, 0);
+            //if (CheckTilemapWall()) break;
             this.SpawnFX(pos3);
+        }
 
+        for (int i = 1; i <= this.fireLength; i++)
+        {
             Vector3 pos4 = bombpos + new Vector3(0, -i, 0);
+            //if (CheckTilemapWall()) break;
             this.SpawnFX(pos4);
         }
     }
@@ -43,4 +56,13 @@ public class FXSpawner : Spawner
         Transform obj = this.Spawn(prefab, pos, transform.rotation);
         obj.gameObject.SetActive(true);
     }
+
+    //private bool CheckTilemapWall()
+    //{
+    //    bool ColliderWall = false;
+        
+
+        
+    //    return ColliderWall;
+    //}
 }
