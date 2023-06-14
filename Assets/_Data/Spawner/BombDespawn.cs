@@ -6,7 +6,7 @@ using static UnityEditor.PlayerSettings;
 
 public class BombDespawn : LoboMonoBehaviour
 {
-    [SerializeField] protected float timeDelayDespawn = 1f;
+    [SerializeField] protected float timeDelayDespawn = 3f;
 
     private void OnEnable()
     {

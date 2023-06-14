@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FXSpawner : Spawner
 {
@@ -12,6 +13,8 @@ public class FXSpawner : Spawner
 
     [SerializeField] protected int fireLength = 2;
 
+    [SerializeField] protected Vector3 bombPosition;
+
     protected override void Awake()
     {
         base.Awake();
@@ -19,37 +22,61 @@ public class FXSpawner : Spawner
         FXSpawner._instance = this;
     }
 
-    public virtual void Spawning(Vector3 bombpos)
+    public virtual void Spawning(Vector3 bombPos)
     {
-        this.SpawnFX(bombpos);
+        this.bombPosition = bombPos;
+        this.SpawnFX(bombPos);
+        this.SpawnFXInAllDirections();
+    }
+
+    void SpawnFXInAllDirections()
+    {
+        this.SpawnFXUp();
+        this.SpawnFXDown();
+        this.SpawnFXLeft();
+        this.SpawnFXRight();
+    }
+    
+    void SpawnFXUp()
+    {
         for (int i = 1; i <= this.fireLength; i++)
         {
-            Vector3 pos = bombpos + new Vector3(i, 0, 0);
+            Vector3 posUp = this.bombPosition + new Vector3(0, i, 0);
             //if (CheckTilemapWall()) break;
-            this.SpawnFX(pos);
-        }
-
-        for(int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 pos2 = bombpos + new Vector3(0, i, 0);
-            //if (CheckTilemapWall()) break;
-            this.SpawnFX(pos2);
-        }
-
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 pos3 = bombpos + new Vector3(-i, 0, 0);
-            //if (CheckTilemapWall()) break;
-            this.SpawnFX(pos3);
-        }
-
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 pos4 = bombpos + new Vector3(0, -i, 0);
-            //if (CheckTilemapWall()) break;
-            this.SpawnFX(pos4);
+            this.SpawnFX(posUp);
         }
     }
+    
+    void SpawnFXDown()
+    {
+        for (int i = 1; i <= this.fireLength; i++)
+        {
+            Vector3 posRight = this.bombPosition + new Vector3(0, -i, 0);
+            //if (CheckTilemapWall()) break;
+            this.SpawnFX(posRight);
+        }
+    }
+
+    void SpawnFXLeft()
+    {
+        for (int i = 1; i <= this.fireLength; i++)
+        {
+            Vector3 posLeft = this.bombPosition + new Vector3(-i, 0, 0);
+            //if (CheckTilemapWall()) break;
+            this.SpawnFX(posLeft);
+        }
+    }
+
+    void SpawnFXRight()
+    {
+        for (int i = 1; i <= this.fireLength; i++)
+        {
+            Vector3 posRight = this.bombPosition + new Vector3(i, 0, 0);
+            //if (CheckTilemapWall()) break;
+            this.SpawnFX(posRight);
+        }
+    }
+
     private void SpawnFX(Vector3 pos)
     {
         Transform prefab = this.RandomPrefab();
@@ -57,12 +84,10 @@ public class FXSpawner : Spawner
         obj.gameObject.SetActive(true);
     }
 
-    //private bool CheckTilemapWall()
+    //void GetBombTilePosition()
     //{
-    //    bool ColliderWall = false;
-        
+    //    Vector3Int cellPosition = GridSystemCtrl.Instance.tilemapBg.WorldToCell(this.bombPosition);
 
-        
-    //    return ColliderWall;
     //}
+
 }
