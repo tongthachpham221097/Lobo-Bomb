@@ -29,7 +29,7 @@ public class FXSpawner : Spawner
 
     void GetBombTilePosition()
     {
-        this.bombPosTilemapGround = GridSystemCtrl.Instance.tilemapBg.WorldToCell(this.bombPosition);
+        this.bombPosTilemapGround = GridSystemCtrl.Instance.tilemapBgOverWalls.WorldToCell(this.bombPosition);
     }
 
     public virtual void Spawning()
