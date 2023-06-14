@@ -10,6 +10,9 @@ public class BombSpawner : Spawner
 
     public static string bomb1 = "Bomb_1";
 
+    [SerializeField] private Vector3Int playerTilemapPos;
+    [SerializeField] private Vector3 offsetCenter = new Vector3(0.5f, 0, 0);
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,12 +28,18 @@ public class BombSpawner : Spawner
     {
         if (!InputManager.Instance.pressSpace) return;
 
-        Vector3 pos = PlayerCtrl.Instance.AvatarCtrl.transform.position;
+        this.GetPlayerTilemapPos();
 
+        Vector3 pos = this.playerTilemapPos + this.offsetCenter;
         Quaternion rot = transform.rotation;
-
+        
         Transform prefab = this.RandomPrefab();
         Transform obj = this.Spawn(prefab, pos, rot);
         obj.gameObject.SetActive(true);
+    }
+
+    void GetPlayerTilemapPos()
+    {
+        this.playerTilemapPos = GridSystemCtrl.Instance.tilemapBg.WorldToCell(PlayerCtrl.Instance.AvatarCtrl.transform.position);
     }
 }
