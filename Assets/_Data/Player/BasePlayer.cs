@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasePlayer : LoboMonoBehaviour
 {
-    [Header("Base Spawner")]
+    [Header("Base Player")]
     [SerializeField] protected PlayerCtrl playerCtrl;
 
     protected override void LoadComponents()

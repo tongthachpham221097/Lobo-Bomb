@@ -14,7 +14,7 @@ public class SpawnPointsInWalls : BaseSpawner
     void ScanTileMap()
     {
         spawnPointsInWalls.Clear();
-        Tilemap tilemap = GridSystemCtrl.Instance.TilemapBgInWalls;
+        Tilemap tilemap = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgInWalls;
         BoundsInt bounds = tilemap.cellBounds;
 
         for (int x = bounds.xMin; x < bounds.xMax; x++)

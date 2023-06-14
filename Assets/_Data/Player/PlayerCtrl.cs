@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCtrl : LoboMonoBehaviour
+public class PlayerCtrl : BaseCtrl
 {
-    private static PlayerCtrl _instance;
-    public static PlayerCtrl Instance => _instance;
-
     [SerializeField] protected CharacterController characterController;
     public CharacterController CharacterController => characterController;
 
@@ -18,12 +15,7 @@ public class PlayerCtrl : LoboMonoBehaviour
 
     [SerializeField] protected AvatarCtrl avatarCtrl;
     public AvatarCtrl AvatarCtrl => avatarCtrl;
-    protected override void Awake()
-    {
-        base.Awake();
-        if (PlayerCtrl._instance != null) Debug.LogError("only 1 PlayerCtrl allow to exist");
-        PlayerCtrl._instance = this;
-    }
+
     protected override void LoadComponents()
     {
         base.LoadComponents();

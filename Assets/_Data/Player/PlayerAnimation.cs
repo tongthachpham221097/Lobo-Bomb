@@ -13,12 +13,12 @@ public class PlayerAnimation : BasePlayer
     }
     protected virtual void WalkHorizontal()
     {
-        this.walkHorizontal = InputManager.Instance.pressHorizontal;
+        this.walkHorizontal = this.playerCtrl.GameCtrl.InputManager.pressHorizontal;
         this.playerCtrl.Animator.SetFloat("speed", Mathf.Abs(walkHorizontal));
     }
     protected virtual void WalkVertical()
     {
-        this.walkVertical = InputManager.Instance.pressVertical;
+        this.walkVertical = this.playerCtrl.GameCtrl.InputManager.pressVertical;
         if (this.walkVertical >= 0) this.WalkUp();
         if (this.walkVertical <= 0) this.WalkDown();
     }

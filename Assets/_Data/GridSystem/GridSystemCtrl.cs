@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GridSystemCtrl : LoboMonoBehaviour
+public class GridSystemCtrl : BaseCtrl
 {
-    private static GridSystemCtrl _instance;
-    public static GridSystemCtrl Instance => _instance;
-
     private Tilemap _tilemapBgOverWalls;
     public Tilemap TilemapBgOverWalls => _tilemapBgOverWalls;
 
@@ -14,13 +11,6 @@ public class GridSystemCtrl : LoboMonoBehaviour
 
     private Tilemap _tilemapWalls;
     public Tilemap TilemapWalls => _tilemapWalls;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        if (GridSystemCtrl._instance != null) Debug.LogError("only 1 GridSystemCtrl allow to exist");
-        GridSystemCtrl._instance = this;
-    }
 
     protected override void LoadComponents()
     {

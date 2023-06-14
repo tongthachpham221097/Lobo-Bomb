@@ -20,7 +20,7 @@ public class FXSpawner : Spawner
 
     void GetBombTilePosition()
     {
-        this.bombPosTilemapGround = GridSystemCtrl.Instance.TilemapBgOverWalls.WorldToCell(this.bombPosition);
+        this.bombPosTilemapGround = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgOverWalls.WorldToCell(this.bombPosition);
     }
 
     public virtual void Spawning()
@@ -86,7 +86,7 @@ public class FXSpawner : Spawner
 
     bool CheckTilemapWalls(Vector3 spawnPosition)
     {
-        Tilemap wall = GridSystemCtrl.Instance.TilemapWalls;
+        Tilemap wall = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapWalls;
         if (wall.HasTile(wall.WorldToCell(spawnPosition))) return true;
         return false;
     }

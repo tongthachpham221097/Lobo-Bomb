@@ -15,8 +15,8 @@ public class PlayerMovement : BasePlayer
     }
     protected virtual void GetInput()
     {
-        this.horizontalMove = InputManager.Instance.pressHorizontal;
-        this.verticalMove = InputManager.Instance.pressVertical;
+        this.horizontalMove = this.playerCtrl.GameCtrl.InputManager.pressHorizontal;
+        this.verticalMove = this.playerCtrl.GameCtrl.InputManager.pressVertical;
     }
     protected virtual void Moving()
     {

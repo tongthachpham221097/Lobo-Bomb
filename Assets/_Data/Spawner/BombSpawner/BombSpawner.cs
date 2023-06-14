@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class BombSpawner : Spawner
 {
@@ -17,7 +14,7 @@ public class BombSpawner : Spawner
 
     protected virtual void BombSpawning()
     {
-        if (!InputManager.Instance.pressSpace) return;
+        if (!this.SpawnerCtrl.GameCtrl.InputManager.pressSpace) return;
 
         this.GetPlayerTilemapPos();
 
@@ -31,6 +28,6 @@ public class BombSpawner : Spawner
 
     void GetPlayerTilemapPos()
     {
-        this.playerTilemapPos = GridSystemCtrl.Instance.TilemapBgOverWalls.WorldToCell(PlayerCtrl.Instance.AvatarCtrl.transform.position);
+        this.playerTilemapPos = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgOverWalls.WorldToCell(this.spawnerCtrl.GameCtrl.PlayerCtrl.transform.position);
     }
 }

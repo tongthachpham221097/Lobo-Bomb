@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnerCtrl : LoboMonoBehaviour
+public class SpawnerCtrl : BaseCtrl
 {
     [SerializeField] private SpawnPointsInWalls _spawnPointsInWalls;
     public SpawnPointsInWalls SpawnPointsInWalls => _spawnPointsInWalls;
