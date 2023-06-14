@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 
-public class AvatarCtrl : MonoBehaviour
+public class AvatarCtrl : BasePlayer
 {
    
 }

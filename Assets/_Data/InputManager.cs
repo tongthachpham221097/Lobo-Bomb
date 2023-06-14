@@ -1,21 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : LoboMonoBehaviour
+public class InputManager : MonoBehaviour
 {
-    private static InputManager _instance;
-    public static InputManager Instance => _instance;
-
     [SerializeField] public float pressHorizontal;
     [SerializeField] public float pressVertical;
     [SerializeField] public bool pressSpace;
-    protected override void Awake()
-    {
-        base.Awake();
-        if (InputManager._instance != null) Debug.LogError("only 1 InputManager allow to exist");
-        InputManager._instance = this;
-    }
+ 
     protected virtual void Update()
     {
         this.GetInput();
