@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class FXSpawner : Spawner
 {
@@ -14,6 +11,7 @@ public class FXSpawner : Spawner
     [SerializeField] protected int fireLength = 2;
 
     [SerializeField] protected Vector3 bombPosition;
+    [SerializeField] protected Vector3Int bombPosTilemapGround;
 
     protected override void Awake()
     {
@@ -22,10 +20,20 @@ public class FXSpawner : Spawner
         FXSpawner._instance = this;
     }
 
-    public virtual void Spawning(Vector3 bombPos)
+    public void GetBombPosition(Vector3 bombPos)
     {
         this.bombPosition = bombPos;
-        this.SpawnFX(bombPos);
+        this.GetBombTilePosition();
+    }
+
+    void GetBombTilePosition()
+    {
+        this.bombPosTilemapGround = GridSystemCtrl.Instance.tilemapBg.WorldToCell(this.bombPosition);
+    }
+
+    public virtual void Spawning()
+    {
+        this.SpawnFX(this.bombPosition);
         this.SpawnFXInAllDirections();
     }
 
@@ -39,7 +47,7 @@ public class FXSpawner : Spawner
 
     void SpawnFXInDirection(Vector3 direction)
     {
-        for (int i = 1; i <= fireLength; i++)
+        for (int i = 1; i <= this.fireLength; i++)
         {
             Vector3 spawnPosition = bombPosition + (direction * i);
             
@@ -53,11 +61,4 @@ public class FXSpawner : Spawner
         Transform obj = this.Spawn(prefab, pos, transform.rotation);
         obj.gameObject.SetActive(true);
     }
-
-    //void GetBombTilePosition()
-    //{
-    //    Vector3Int cellPosition = GridSystemCtrl.Instance.tilemapBg.WorldToCell(this.bombPosition);
-
-    //}
-
 }

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Tilemaps;
-using static UnityEditor.PlayerSettings;
+﻿using UnityEngine;
 
 public class BombDespawn : LoboMonoBehaviour
 {
@@ -16,6 +12,7 @@ public class BombDespawn : LoboMonoBehaviour
     void BombDespawning()
     {
         BombSpawner.Instance.Despawn(transform.parent);
-        FXSpawner.Instance.Spawning(transform.parent.position);
+        FXSpawner.Instance.GetBombPosition(transform.parent.position);
+        FXSpawner.Instance.Spawning();
     }
 }
