@@ -31,49 +31,19 @@ public class FXSpawner : Spawner
 
     void SpawnFXInAllDirections()
     {
-        this.SpawnFXUp();
-        this.SpawnFXDown();
-        this.SpawnFXLeft();
-        this.SpawnFXRight();
-    }
-    
-    void SpawnFXUp()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 posUp = this.bombPosition + new Vector3(0, i, 0);
-            //if (CheckTilemapWall()) break;
-            this.SpawnFX(posUp);
-        }
-    }
-    
-    void SpawnFXDown()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 posRight = this.bombPosition + new Vector3(0, -i, 0);
-            //if (CheckTilemapWall()) break;
-            this.SpawnFX(posRight);
-        }
+        this.SpawnFXInDirection(Vector3.up);
+        this.SpawnFXInDirection(Vector3.down);
+        this.SpawnFXInDirection(Vector3.left);
+        this.SpawnFXInDirection(Vector3.right);
     }
 
-    void SpawnFXLeft()
+    void SpawnFXInDirection(Vector3 direction)
     {
-        for (int i = 1; i <= this.fireLength; i++)
+        for (int i = 1; i <= fireLength; i++)
         {
-            Vector3 posLeft = this.bombPosition + new Vector3(-i, 0, 0);
-            //if (CheckTilemapWall()) break;
-            this.SpawnFX(posLeft);
-        }
-    }
-
-    void SpawnFXRight()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 posRight = this.bombPosition + new Vector3(i, 0, 0);
-            //if (CheckTilemapWall()) break;
-            this.SpawnFX(posRight);
+            Vector3 spawnPosition = bombPosition + (direction * i);
+            
+            SpawnFX(spawnPosition);
         }
     }
 
