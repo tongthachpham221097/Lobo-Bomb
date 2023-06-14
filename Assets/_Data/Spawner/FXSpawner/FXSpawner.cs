@@ -3,9 +3,7 @@ using UnityEngine.Tilemaps;
 
 public class FXSpawner : Spawner
 {
-    [Header("FXSpawner")]
-    private static FXSpawner _instance;
-    public static FXSpawner Instance => _instance;
+    [Header("FX Spawner")]
 
     public static string fx1 = "FX_1";
 
@@ -13,13 +11,6 @@ public class FXSpawner : Spawner
     private Vector3 bombPosition;
     private Vector3Int bombPosTilemapGround;
     private Vector3 offsetCenter = new Vector3(0.5f, 0, 0);
-
-    protected override void Awake()
-    {
-        base.Awake();
-        if (FXSpawner._instance != null) Debug.LogError("only 1 FXSpawner allow to exist");
-        FXSpawner._instance = this;
-    }
 
     public void GetBombPosition(Vector3 bombPos)
     {
@@ -29,7 +20,7 @@ public class FXSpawner : Spawner
 
     void GetBombTilePosition()
     {
-        this.bombPosTilemapGround = GridSystemCtrl.Instance.tilemapBgOverWalls.WorldToCell(this.bombPosition);
+        this.bombPosTilemapGround = GridSystemCtrl.Instance.TilemapBgOverWalls.WorldToCell(this.bombPosition);
     }
 
     public virtual void Spawning()
@@ -95,7 +86,7 @@ public class FXSpawner : Spawner
 
     bool CheckTilemapWalls(Vector3 spawnPosition)
     {
-        Tilemap wall = GridSystemCtrl.Instance.tilemapWalls;
+        Tilemap wall = GridSystemCtrl.Instance.TilemapWalls;
         if (wall.HasTile(wall.WorldToCell(spawnPosition))) return true;
         return false;
     }

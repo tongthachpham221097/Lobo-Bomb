@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class SpawnPointsInWalls : MonoBehaviour
+public class SpawnPointsInWalls : BaseSpawner
 {
     [SerializeField] private List<Vector3Int> spawnPointsInWalls = new List<Vector3Int>();
 
@@ -14,7 +14,7 @@ public class SpawnPointsInWalls : MonoBehaviour
     void ScanTileMap()
     {
         spawnPointsInWalls.Clear();
-        Tilemap tilemap = GridSystemCtrl.Instance.tilemapBgInWalls;
+        Tilemap tilemap = GridSystemCtrl.Instance.TilemapBgInWalls;
         BoundsInt bounds = tilemap.cellBounds;
 
         for (int x = bounds.xMin; x < bounds.xMax; x++)

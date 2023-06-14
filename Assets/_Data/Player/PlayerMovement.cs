@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovement : LoboMonoBehaviour
+public class PlayerMovement : BasePlayer
 {
     [Header("Player Movement")]
 
@@ -21,17 +21,17 @@ public class PlayerMovement : LoboMonoBehaviour
     protected virtual void Moving()
     {
         Vector3 move = new Vector3(horizontalMove, verticalMove, 0f) * this.runSpeed;
-        PlayerCtrl.Instance.CharacterController.Move(move * Time.fixedDeltaTime);
+        this.playerCtrl.CharacterController.Move(move * Time.fixedDeltaTime);
     }
     protected virtual void HorizontalRotate()
     {
         if (this.horizontalMove > 0)
         {
-            PlayerCtrl.Instance.AvatarCtrl.transform.localScale = new Vector3(-1f, 1f, 1f);
+            this.playerCtrl.AvatarCtrl.transform.localScale = new Vector3(-1f, 1f, 1f);
         }
         else if (this.horizontalMove < 0)
         {
-            PlayerCtrl.Instance.AvatarCtrl.transform.localScale = new Vector3(1f, 1f, 1f);
+            this.playerCtrl.AvatarCtrl.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 }

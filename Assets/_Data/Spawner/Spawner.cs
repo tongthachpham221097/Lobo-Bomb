@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Spawner : LoboMonoBehaviour
+public abstract class Spawner : BaseSpawner
 {
     [Header("Spawner")]
     [SerializeField] protected Transform holder;
@@ -15,6 +15,7 @@ public abstract class Spawner : LoboMonoBehaviour
 
     protected override void LoadComponents()
     {
+        base.LoadComponents();
         this.LoadPrefabs();
         this.LoadHolder();
     }

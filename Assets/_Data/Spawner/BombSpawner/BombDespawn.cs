@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BombDespawn : LoboMonoBehaviour
+public class BombDespawn : BaseSpawner
 {
     [SerializeField] protected float timeDelayDespawn = 3f;
 
@@ -11,8 +11,8 @@ public class BombDespawn : LoboMonoBehaviour
 
     void BombDespawning()
     {
-        BombSpawner.Instance.Despawn(transform.parent);
-        FXSpawner.Instance.GetBombPosition(transform.parent.position);
-        FXSpawner.Instance.Spawning();
+        this.spawnerCtrl.BombSpawner.Despawn(transform.parent);
+        this.spawnerCtrl.FXSpawner.GetBombPosition(transform.parent.position);
+        this.spawnerCtrl.FXSpawner.Spawning();
     }
 }

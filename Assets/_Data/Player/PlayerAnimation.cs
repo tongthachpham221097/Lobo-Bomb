@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimation : LoboMonoBehaviour
+public class PlayerAnimation : BasePlayer
 {
     [SerializeField] protected float walkHorizontal;
     [SerializeField] protected float walkVertical;
@@ -14,7 +14,7 @@ public class PlayerAnimation : LoboMonoBehaviour
     protected virtual void WalkHorizontal()
     {
         this.walkHorizontal = InputManager.Instance.pressHorizontal;
-        PlayerCtrl.Instance.Animator.SetFloat("speed", Mathf.Abs(walkHorizontal));
+        this.playerCtrl.Animator.SetFloat("speed", Mathf.Abs(walkHorizontal));
     }
     protected virtual void WalkVertical()
     {
@@ -24,10 +24,10 @@ public class PlayerAnimation : LoboMonoBehaviour
     }
     protected virtual void WalkUp()
     {
-        PlayerCtrl.Instance.Animator.SetFloat("walkUp", Mathf.Abs(walkVertical));
+        this.playerCtrl.Animator.SetFloat("walkUp", Mathf.Abs(walkVertical));
     }
     protected virtual void WalkDown()
     {
-        PlayerCtrl.Instance.Animator.SetFloat("walkDown", Mathf.Abs(walkVertical));
+        this.playerCtrl.Animator.SetFloat("walkDown", Mathf.Abs(walkVertical));
     }
 }
