@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class BombSpawner : Spawner
 {
-    public static string bomb1 = "Bomb_1";
-
     [SerializeField] private Vector3Int playerTilemapPos;
     [SerializeField] private Vector3 offsetCenter = new Vector3(0.5f, 0, 0);
 
