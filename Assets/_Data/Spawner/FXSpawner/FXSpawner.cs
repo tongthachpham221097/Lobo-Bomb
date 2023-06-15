@@ -31,64 +31,26 @@ public class FXSpawner : Spawner
 
     void SpawnFXInAllDirections()
     {
-        this.SpawnFXDirectionUp();
-        this.SpawnFXDirectionDown();
-        this.SpawnFXDirectionLeft();
-        this.SpawnFXDirectionRight();
+        SpawnFXInDirection(Vector3Int.up);
+        SpawnFXInDirection(Vector3Int.down);
+        SpawnFXInDirection(Vector3Int.left);
+        SpawnFXInDirection(Vector3Int.right);
     }
 
-    void SpawnFXDirectionUp()
+    void SpawnFXInDirection(Vector3Int direction)
     {
         for (int i = 1; i <= this.fireLength; i++)
         {
-            Vector3 spawnPosition = this.bombPosTilemapGround + new Vector3(0, i, 0) + this.offsetCenter;
-            if (this.CheckTilemapWalls(spawnPosition)) break;
-            SpawnFX(spawnPosition);
+            Vector3Int spawnPosition = this.bombPosTilemapGround + (direction * i);
+            if (!this.spawnerCtrl.SpawnPointsInWalls.CheckSpawnPoints(spawnPosition)) continue;
+            SpawnFX(spawnPosition + this.offsetCenter);
         }
     }
 
-    void SpawnFXDirectionDown()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 spawnPosition = this.bombPosTilemapGround + new Vector3(0, -i, 0) + this.offsetCenter;
-            if (this.CheckTilemapWalls(spawnPosition)) break;
-            SpawnFX(spawnPosition);
-        }
-    }
-
-    void SpawnFXDirectionLeft()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 spawnPosition = this.bombPosTilemapGround + new Vector3(-i, 0, 0) + this.offsetCenter;
-            if (this.CheckTilemapWalls(spawnPosition)) break;
-            SpawnFX(spawnPosition);
-        }
-    }
-
-    void SpawnFXDirectionRight()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 spawnPosition = this.bombPosTilemapGround + new Vector3(i, 0, 0) + this.offsetCenter;
-            if (this.CheckTilemapWalls(spawnPosition)) break;
-            SpawnFX(spawnPosition);
-        }
-    }
-
-    private void SpawnFX(Vector3 pos)
+    void SpawnFX(Vector3 pos)
     {
         Transform prefab = this.RandomPrefab();
         Transform obj = this.Spawn(prefab, pos, transform.rotation);
         obj.gameObject.SetActive(true);
     }
-
-    bool CheckTilemapWalls(Vector3 spawnPosition)
-    {
-        Tilemap wall = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapWalls;
-        if (wall.HasTile(wall.WorldToCell(spawnPosition))) return true;
-        return false;
-    }
-    
 }

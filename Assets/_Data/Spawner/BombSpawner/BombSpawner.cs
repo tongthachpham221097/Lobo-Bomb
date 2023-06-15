@@ -28,6 +28,6 @@ public class BombSpawner : Spawner
 
     void GetPlayerTilemapPos()
     {
-        this.playerTilemapPos = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgOverWalls.WorldToCell(this.spawnerCtrl.GameCtrl.PlayerCtrl.transform.position);
+        this.playerTilemapPos = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgOverWalls.WorldToCell(this.spawnerCtrl.GameCtrl.PlayerCtrl.AvatarCtrl.transform.position);
     }
 }

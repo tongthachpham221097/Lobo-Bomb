@@ -4,8 +4,8 @@ using UnityEngine.Tilemaps;
 
 public class SpawnPointsInWalls : BaseSpawner
 {
-    [SerializeField] private List<Vector3Int> spawnPointsInWalls = new List<Vector3Int>();
-
+    [SerializeField] private List<Vector3Int> spawnPoints = new List<Vector3Int>();
+    public List<Vector3Int> SpawnPoints => spawnPoints;
     protected override void Awake()
     {
         ScanTileMap();
@@ -13,7 +13,7 @@ public class SpawnPointsInWalls : BaseSpawner
 
     void ScanTileMap()
     {
-        spawnPointsInWalls.Clear();
+        spawnPoints.Clear();
         Tilemap tilemap = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgInWalls;
         BoundsInt bounds = tilemap.cellBounds;
 
@@ -22,8 +22,14 @@ public class SpawnPointsInWalls : BaseSpawner
             for (int y = bounds.yMin; y < bounds.yMax; y++)
             {
                 Vector3Int tilePos = new Vector3Int(x, y, 0);
-                spawnPointsInWalls.Add(tilePos);
+                spawnPoints.Add(tilePos);
             }
         }
+    }
+
+    public bool CheckSpawnPoints(Vector3Int pos)
+    {
+        if(spawnPoints.Contains(pos)) return true;
+        return false;
     }
 }
