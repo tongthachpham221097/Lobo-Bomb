@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class FXSpawner : Spawner
@@ -8,87 +9,72 @@ public class FXSpawner : Spawner
     public static string fx1 = "FX_1";
 
     [SerializeField] private int fireLength = 2;
-    private Vector3 bombPosition;
-    private Vector3Int bombPosTilemapGround;
+    private Vector3 _bombPosition;
+    private Vector3Int _bombPosTilemapGround;
     private Vector3 offsetCenter = new Vector3(0.5f, 0, 0);
+
+    private Dictionary<Vector3Int, bool> _spawnDirections = new Dictionary<Vector3Int, bool>();
 
     public void GetBombPosition(Vector3 bombPos)
     {
-        this.bombPosition = bombPos;
+        this._bombPosition = bombPos;
         this.GetBombTilePosition();
     }
 
     void GetBombTilePosition()
     {
-        this.bombPosTilemapGround = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgOverWalls.WorldToCell(this.bombPosition);
+        this._bombPosTilemapGround = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgOverWalls.WorldToCell(this._bombPosition);
     }
 
     public virtual void Spawning()
     {
-        this.SpawnFX(this.bombPosTilemapGround + this.offsetCenter);
+        this.SpawnFX(this._bombPosTilemapGround + this.offsetCenter);
         this.SpawnFXInAllDirections();
     }
 
     void SpawnFXInAllDirections()
     {
-        this.SpawnFXDirectionUp();
-        this.SpawnFXDirectionDown();
-        this.SpawnFXDirectionLeft();
-        this.SpawnFXDirectionRight();
+        this._spawnDirections.Clear();
+
+        SpawnFXInDirection(Vector3Int.up);
+        SpawnFXInDirection(Vector3Int.down);
+        SpawnFXInDirection(Vector3Int.left);
+        SpawnFXInDirection(Vector3Int.right);
     }
 
-    void SpawnFXDirectionUp()
+    void SpawnFXInDirection(Vector3Int direction)
     {
         for (int i = 1; i <= this.fireLength; i++)
         {
-            Vector3 spawnPosition = this.bombPosTilemapGround + new Vector3(0, i, 0) + this.offsetCenter;
-            if (this.CheckTilemapWalls(spawnPosition)) break;
-            SpawnFX(spawnPosition);
+            Vector3Int spawnPosition = this._bombPosTilemapGround + (direction * i);
+            if (this.CheckTilemapWalls(spawnPosition)) continue;
+            if (this.CheckTilemapObstacle(spawnPosition, direction)) continue;
+            SpawnFX(spawnPosition + this.offsetCenter);
         }
     }
 
-    void SpawnFXDirectionDown()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 spawnPosition = this.bombPosTilemapGround + new Vector3(0, -i, 0) + this.offsetCenter;
-            if (this.CheckTilemapWalls(spawnPosition)) break;
-            SpawnFX(spawnPosition);
-        }
-    }
-
-    void SpawnFXDirectionLeft()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 spawnPosition = this.bombPosTilemapGround + new Vector3(-i, 0, 0) + this.offsetCenter;
-            if (this.CheckTilemapWalls(spawnPosition)) break;
-            SpawnFX(spawnPosition);
-        }
-    }
-
-    void SpawnFXDirectionRight()
-    {
-        for (int i = 1; i <= this.fireLength; i++)
-        {
-            Vector3 spawnPosition = this.bombPosTilemapGround + new Vector3(i, 0, 0) + this.offsetCenter;
-            if (this.CheckTilemapWalls(spawnPosition)) break;
-            SpawnFX(spawnPosition);
-        }
-    }
-
-    private void SpawnFX(Vector3 pos)
+    void SpawnFX(Vector3 pos)
     {
         Transform prefab = this.RandomPrefab();
         Transform obj = this.Spawn(prefab, pos, transform.rotation);
         obj.gameObject.SetActive(true);
     }
 
-    bool CheckTilemapWalls(Vector3 spawnPosition)
+    bool CheckTilemapWalls(Vector3Int spawnPosition)
     {
-        Tilemap wall = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapWalls;
-        if (wall.HasTile(wall.WorldToCell(spawnPosition))) return true;
+        if (!this.spawnerCtrl.SpawnPointsInWalls.CheckSpawnPoints(spawnPosition)) return true;
         return false;
     }
     
+    bool CheckTilemapObstacle(Vector3Int spawnPosition, Vector3Int direction)
+    {
+        if(this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
+        
+        TileBase tile = this.spawnerCtrl.GameCtrl.GridSystemCtrl.NonDestructiblesCtrl.NonDestructibles.GetTile(spawnPosition);
+        if (tile == null) return false;
+
+        this._spawnDirections[direction] = true;
+        
+        return true;
+    }
 }

@@ -3,21 +3,29 @@ using UnityEngine.Tilemaps;
 
 public class GridSystemCtrl : BaseCtrl
 {
-    private Tilemap _tilemapBgOverWalls;
+    [SerializeField] private Tilemap _tilemapBgOverWalls;
     public Tilemap TilemapBgOverWalls => _tilemapBgOverWalls;
 
-    private Tilemap _tilemapBgInWalls;
+    [SerializeField] private Tilemap _tilemapBgInWalls;
     public Tilemap TilemapBgInWalls => _tilemapBgInWalls;
 
-    private Tilemap _tilemapWalls;
-    public Tilemap TilemapWalls => _tilemapWalls;
+    [SerializeField] private TilemapWallsCtrl _tilemapWallsCtrl;
+    public TilemapWallsCtrl TilemapWallsCtrl => _tilemapWallsCtrl;
+
+    [SerializeField] private Tilemap _destructibles;
+    public Tilemap Destructibles => _destructibles;
+
+    [SerializeField] private NonDestructiblesCtrl _nonDestructiblesCtrl;
+    public NonDestructiblesCtrl NonDestructiblesCtrl => _nonDestructiblesCtrl;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadTilemapBgOverWalls();
         this.LoadTilemapBgInWalls();
-        this.LoadTilemapWalls();
+        this.LoadTilemapWallsCtrl();
+        this.LoadDestructibles();
+        this.LoadNonDestructiblesCtrl();
     }
 
     void LoadTilemapBgOverWalls()
@@ -34,10 +42,24 @@ public class GridSystemCtrl : BaseCtrl
         Debug.LogWarning(transform.name + ": LoadTilemapBgInWalls", gameObject);
     }
 
-    void LoadTilemapWalls()
+    void LoadTilemapWallsCtrl()
     {
-        if (this._tilemapWalls != null) return;
-        this._tilemapWalls = transform.Find("Tilemap-Walls").GetComponent<Tilemap>();
-        Debug.LogWarning(transform.name + ": LoadTilemapWalls", gameObject);
+        if (this._tilemapWallsCtrl != null) return;
+        this._tilemapWallsCtrl = GetComponentInChildren<TilemapWallsCtrl>();
+        Debug.LogWarning(transform.name + ": LoadTilemapWallsCtrl", gameObject);
+    }
+
+    void LoadDestructibles()
+    {
+        if (this._destructibles != null) return;
+        this._destructibles = transform.Find("Destructibles").GetComponent<Tilemap>();
+        Debug.LogWarning(transform.name + ": LoadDestructibles", gameObject);
+    }
+
+    void LoadNonDestructiblesCtrl()
+    {
+        if (this._nonDestructiblesCtrl != null) return;
+        this._nonDestructiblesCtrl = GetComponentInChildren<NonDestructiblesCtrl>();
+        Debug.LogWarning(transform.name + ": LoadNonDestructiblesCtrl", gameObject);
     }
 }
