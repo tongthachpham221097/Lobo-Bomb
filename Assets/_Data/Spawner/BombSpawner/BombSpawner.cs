@@ -7,6 +7,11 @@ public class BombSpawner : Spawner
     [SerializeField] private Vector3Int playerTilemapPos;
     [SerializeField] private Vector3 offsetCenter = new Vector3(0.5f, 0, 0);
 
+    protected override void ResetValue()
+    {
+        base.ResetValue();
+        this.timeDelay = 1f;
+    }
     protected virtual void Update()
     {
         this.BombSpawning();
@@ -23,6 +28,7 @@ public class BombSpawner : Spawner
         
         Transform prefab = this.RandomPrefab();
         Transform obj = this.Spawn(prefab, pos, rot);
+        if(obj == null) return;
         obj.gameObject.SetActive(true);
     }
 

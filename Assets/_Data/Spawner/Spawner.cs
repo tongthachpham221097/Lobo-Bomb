@@ -8,7 +8,10 @@ public abstract class Spawner : BaseSpawner
     [SerializeField] protected Transform holder;
 
     [SerializeField] protected int spawnedCount = 0;
-    public int SpawnedCount => spawnedCount;
+    [SerializeField] protected int maxSpawn = 100;
+    
+    [SerializeField] protected float timer = 0f;
+    [SerializeField] protected float timeDelay = 0f;
 
     [SerializeField] protected List<Transform> prefabs;
     [SerializeField] protected List<Transform> poolObjs;
@@ -20,6 +23,10 @@ public abstract class Spawner : BaseSpawner
         this.LoadHolder();
     }
 
+    private void FixedUpdate()
+    {
+        this.timer += Time.fixedDeltaTime;
+    }
     protected virtual void LoadHolder()
     {
         if (this.holder != null) return;
@@ -64,6 +71,11 @@ public abstract class Spawner : BaseSpawner
 
     public virtual Transform Spawn(Transform prefab, Vector3 spawnPos, Quaternion rotation)
     {
+        if (this.spawnedCount >= this.maxSpawn) return null;
+
+        if (this.timer < this.timeDelay) return null;
+        this.timer = 0f;
+
         Transform newPrefab = this.GetObjectFromPool(prefab);
         newPrefab.SetPositionAndRotation(spawnPos, rotation);
 
