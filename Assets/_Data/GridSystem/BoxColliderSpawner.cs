@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DesColliderSpawner : Spawner
+public class BoxColliderSpawner : Spawner
 {
-    [SerializeField] private GridSystemCtrl _gridSystemCtrl;
+    [SerializeField] protected GridSystemCtrl gridSystemCtrl;
+    [SerializeField] protected List<Vector3> spawnPointsPos;
     protected override void LoadComponents()
     {
         this.LoadPrefabs();
@@ -13,8 +14,8 @@ public class DesColliderSpawner : Spawner
 
     void LoadGridSystemCtrl()
     {
-        if (this._gridSystemCtrl != null) return;
-        this._gridSystemCtrl = FindAnyObjectByType<GridSystemCtrl>();
+        if (this.gridSystemCtrl != null) return;
+        this.gridSystemCtrl = FindAnyObjectByType<GridSystemCtrl>();
         Debug.Log(transform.name + ": LoadGridSystemCtrl", gameObject);
     }
 
@@ -25,8 +26,7 @@ public class DesColliderSpawner : Spawner
 
     void ColliderSpawning()
     {
-        List<Vector3> spawnPointsPos = this._gridSystemCtrl.DesSpawnPoints.SpawnPointsPos;
-        foreach(Vector3 spawnPoint in spawnPointsPos)
+        foreach(Vector3 spawnPoint in this.spawnPointsPos)
         {
             Transform prefab = this.RandomPrefab();
             Transform obj = this.Spawn(prefab, spawnPoint, transform.rotation);

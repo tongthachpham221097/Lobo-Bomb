@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class DesSpawnPoints : BaseGridSystem
+public class NonDesSpawnPoints : BaseGridSystem
 {
     [SerializeField] private List<Vector3> spawnPointsPos = new List<Vector3>();
     public List<Vector3> SpawnPointsPos => spawnPointsPos;
@@ -16,7 +16,7 @@ public class DesSpawnPoints : BaseGridSystem
     void ScanTileMap()
     {
         this.spawnPointsPos.Clear();
-        Tilemap tilemap = this.GridSystemCtrl.Destructibles;
+        Tilemap tilemap = this.GridSystemCtrl.NonDestructibles;
         BoundsInt bounds = tilemap.cellBounds;
 
         for (int x = bounds.xMin; x < bounds.xMax; x++)
