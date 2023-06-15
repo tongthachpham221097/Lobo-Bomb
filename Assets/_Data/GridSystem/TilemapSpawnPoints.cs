@@ -1,22 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class NonDesSpawnPoints : BaseGridSystem
+public class TilemapSpawnPoints : BaseGridSystem
 {
-    [SerializeField] private List<Vector3> spawnPointsPos = new List<Vector3>();
+    [SerializeField] protected List<Vector3> spawnPointsPos = new List<Vector3>();
     public List<Vector3> SpawnPointsPos => spawnPointsPos;
 
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        ScanTileMap();
-    }
+    [SerializeField] protected Tilemap tilemap;
 
-    void ScanTileMap()
+    protected virtual void ScanTileMap()
     {
         this.spawnPointsPos.Clear();
-        Tilemap tilemap = this.GridSystemCtrl.NonDestructibles;
         BoundsInt bounds = tilemap.cellBounds;
 
         for (int x = bounds.xMin; x < bounds.xMax; x++)

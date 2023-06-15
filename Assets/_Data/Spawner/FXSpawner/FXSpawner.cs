@@ -70,7 +70,7 @@ public class FXSpawner : Spawner
     {
         if(this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
         
-        TileBase tile = this.spawnerCtrl.GameCtrl.GridSystemCtrl.Destructibles.GetTile(spawnPosition);
+        TileBase tile = this.spawnerCtrl.GameCtrl.GridSystemCtrl.NonDestructiblesCtrl.NonDestructibles.GetTile(spawnPosition);
         if (tile == null) return false;
 
         this._spawnDirections[direction] = true;

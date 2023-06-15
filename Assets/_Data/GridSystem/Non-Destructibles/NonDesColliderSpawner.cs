@@ -12,6 +12,6 @@ public class NonDesColliderSpawner : BoxColliderSpawner
 
     void LoadSpawnPointsPos()
     {
-        this.spawnPointsPos = this.gridSystemCtrl.NonDesSpawnPoints.SpawnPointsPos;
+        this.spawnPointsPos = this.gridSystemCtrl.NonDestructiblesCtrl.NonDesSpawnPoints.SpawnPointsPos;
     }
 }

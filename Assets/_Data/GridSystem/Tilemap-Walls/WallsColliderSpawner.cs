@@ -12,6 +12,6 @@ public class WallsColliderSpawner : BoxColliderSpawner
 
     void LoadSpawnPointsPos()
     {
-        this.spawnPointsPos = this.gridSystemCtrl.NonDesSpawnPoints.SpawnPointsPos;
+        this.spawnPointsPos = this.gridSystemCtrl.TilemapWallsCtrl.WallsSpawnPoints.SpawnPointsPos;
     }
 }
