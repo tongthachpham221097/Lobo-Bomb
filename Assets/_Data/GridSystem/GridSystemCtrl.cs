@@ -12,12 +12,20 @@ public class GridSystemCtrl : BaseCtrl
     [SerializeField] private Tilemap _tilemapWalls;
     public Tilemap TilemapWalls => _tilemapWalls;
 
+    [SerializeField] private Tilemap _destructibles;
+    public Tilemap Destructibles => _destructibles;
+
+    [SerializeField] private DesSpawnPoints _desSpawnPoints;
+    public DesSpawnPoints DesSpawnPoints => _desSpawnPoints;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadTilemapBgOverWalls();
         this.LoadTilemapBgInWalls();
         this.LoadTilemapWalls();
+        this.LoadDestructibles();
+        this.LoadDesSpawnPoints();
     }
 
     void LoadTilemapBgOverWalls()
@@ -39,5 +47,19 @@ public class GridSystemCtrl : BaseCtrl
         if (this._tilemapWalls != null) return;
         this._tilemapWalls = transform.Find("Tilemap-Walls").GetComponent<Tilemap>();
         Debug.LogWarning(transform.name + ": LoadTilemapWalls", gameObject);
+    }
+
+    void LoadDestructibles()
+    {
+        if (this._destructibles != null) return;
+        this._destructibles = transform.Find("Destructibles").GetComponent<Tilemap>();
+        Debug.LogWarning(transform.name + ": LoadDestructibles", gameObject);
+    }
+
+    void LoadDesSpawnPoints()
+    {
+        if (this._desSpawnPoints != null) return;
+        this._desSpawnPoints = GetComponentInChildren<DesSpawnPoints>();
+        Debug.LogWarning(transform.name + ": LoadDesSpawnPoints", gameObject);
     }
 }
