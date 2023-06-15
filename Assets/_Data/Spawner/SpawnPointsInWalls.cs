@@ -6,7 +6,7 @@ public class SpawnPointsInWalls : BaseSpawner
 {
     [SerializeField] private List<Vector3Int> spawnPointsInWalls = new List<Vector3Int>();
 
-    void Start()
+    protected override void Awake()
     {
         ScanTileMap();
     }

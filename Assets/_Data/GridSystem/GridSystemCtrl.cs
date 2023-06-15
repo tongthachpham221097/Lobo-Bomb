@@ -3,13 +3,13 @@ using UnityEngine.Tilemaps;
 
 public class GridSystemCtrl : BaseCtrl
 {
-    private Tilemap _tilemapBgOverWalls;
+    [SerializeField] private Tilemap _tilemapBgOverWalls;
     public Tilemap TilemapBgOverWalls => _tilemapBgOverWalls;
 
-    private Tilemap _tilemapBgInWalls;
+    [SerializeField] private Tilemap _tilemapBgInWalls;
     public Tilemap TilemapBgInWalls => _tilemapBgInWalls;
 
-    private Tilemap _tilemapWalls;
+    [SerializeField] private Tilemap _tilemapWalls;
     public Tilemap TilemapWalls => _tilemapWalls;
 
     protected override void LoadComponents()
