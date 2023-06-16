@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class FXSpawner : Spawner
 {
@@ -13,6 +14,7 @@ public class FXSpawner : Spawner
     private Vector3 _bombPosition;
     private Vector3Int _bombPosTilemapGround;
     private Vector3 offsetCenter = new Vector3(0.5f, 0, 0);
+    private Vector3 offsetTilemap = new Vector3(0.5f, 0.5f, 0);
 
     protected override void LoadComponents()
     {
@@ -72,11 +74,32 @@ public class FXSpawner : Spawner
     {
         if (this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
 
-        if (!this._spawnPosition.Contains(spawnPosition + new Vector3(0.5f, 0.5f, 0))) return false;
-
+        if (!this._spawnPosition.Contains(spawnPosition + this.offsetTilemap)) return false;
+        this.CheckDestructibles(spawnPosition);
         this._spawnDirections[direction] = true;
 
         return true;
     }
 
+    void CheckDestructibles(Vector3Int spawnPosition)
+    {
+        Tilemap tilemap = this.spawnerCtrl.GameCtrl.GridSystemCtrl.Destructibles;
+        Vector3Int cellPosition = tilemap.WorldToCell(spawnPosition);
+        TileBase tile = tilemap.GetTile(cellPosition);
+        if (tile == null) return;
+        tilemap.SetTile(cellPosition, null);
+        this.OffCollider(spawnPosition);
+    }
+
+    void OffCollider(Vector3Int spawnPosition)
+    {
+        List<Transform> colliders = this.spawnerCtrl.ColliderSpawner.Colliders;
+        Vector3 pos = spawnPosition + this.offsetTilemap;
+        foreach (Transform collider in  colliders)
+        {
+            if (collider.position != pos) continue;
+            collider.gameObject.SetActive(false);
+            this.SpawnFX(spawnPosition + this.offsetCenter);
+        }
+    }
 }
