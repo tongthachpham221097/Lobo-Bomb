@@ -19,8 +19,8 @@ public class SpawnPointsCollider : BaseSpawnPoints
 
     void LoadTilemap()
     {
-        this._tilemaps.Add(this.SpawnPointsCtrl.SpawnerCtrl.GameCtrl.GridSystemCtrl.TilemapWalls);
-        this._tilemaps.Add(this.SpawnPointsCtrl.SpawnerCtrl.GameCtrl.GridSystemCtrl.TilemapNonDes);
+        this._tilemaps.Add(this.SpawnPointsCtrl.SpawnerCtrl.GameCtrl.GridSystemCtrl.Walls);
+        this._tilemaps.Add(this.SpawnPointsCtrl.SpawnerCtrl.GameCtrl.GridSystemCtrl.NonDestructibles);
     }
 
     void LoadSpawnPoints()

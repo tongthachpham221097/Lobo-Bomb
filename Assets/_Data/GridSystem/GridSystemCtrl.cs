@@ -3,17 +3,17 @@ using UnityEngine.Tilemaps;
 
 public class GridSystemCtrl : BaseCtrl
 {
-    [SerializeField] private Tilemap _tilemapBgOverWalls;
-    public Tilemap TilemapBgOverWalls => _tilemapBgOverWalls;
+    [SerializeField] private Tilemap _bgOverWalls;
+    public Tilemap BgOverWalls => _bgOverWalls;
 
-    [SerializeField] private Tilemap _tilemapBgInWalls;
-    public Tilemap TilemapBgInWalls => _tilemapBgInWalls;
+    [SerializeField] private Tilemap bgInWalls;
+    public Tilemap BgInWalls => bgInWalls;
 
-    [SerializeField] private Tilemap _tilemapWalls;
-    public Tilemap TilemapWalls => _tilemapWalls;
+    [SerializeField] private Tilemap _walls;
+    public Tilemap Walls => _walls;
 
-    [SerializeField] private Tilemap _tilemapNonDes;
-    public Tilemap TilemapNonDes => _tilemapNonDes;
+    [SerializeField] private Tilemap _nonDestructibles;
+    public Tilemap NonDestructibles => _nonDestructibles;
 
     [SerializeField] private Tilemap _destructibles;
     public Tilemap Destructibles => _destructibles;
@@ -21,38 +21,38 @@ public class GridSystemCtrl : BaseCtrl
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadTilemapBgOverWalls();
-        this.LoadTilemapBgInWalls();
-        this.LoadTilemapWalls();
-        this.LoadTilemapNonDes();
+        this.LoadBgOverWalls();
+        this.LoadBgInWalls();
+        this.LoadWalls();
+        this.LoadNonDestructibles();
         this.LoadDestructibles();
     }
 
-    void LoadTilemapBgOverWalls()
+    void LoadBgOverWalls()
     {
-        if (this._tilemapBgOverWalls != null) return;
-        this._tilemapBgOverWalls = transform.Find("Tilemap-BgOverWalls").GetComponent<Tilemap>();
+        if (this._bgOverWalls != null) return;
+        this._bgOverWalls = transform.Find("BgOverWalls").GetComponent<Tilemap>();
         Debug.LogWarning(transform.name + ": LoadTilemapBgOverWalls", gameObject);
     }
 
-    void LoadTilemapBgInWalls()
+    void LoadBgInWalls()
     {
-        if (this._tilemapBgInWalls != null) return;
-        this._tilemapBgInWalls = transform.Find("Tilemap-BgInWalls").GetComponent<Tilemap>();
+        if (this.bgInWalls != null) return;
+        this.bgInWalls = transform.Find("BgInWalls").GetComponent<Tilemap>();
         Debug.LogWarning(transform.name + ": LoadTilemapBgInWalls", gameObject);
     }
 
-    void LoadTilemapWalls()
+    void LoadWalls()
     {
-        if (this._tilemapWalls != null) return;
-        this._tilemapWalls = transform.Find("Tilemap-Walls").GetComponent<Tilemap>();
+        if (this._walls != null) return;
+        this._walls = transform.Find("Walls").GetComponent<Tilemap>();
         Debug.LogWarning(transform.name + ": LoadTilemapWalls", gameObject);
     }
 
-    void LoadTilemapNonDes()
+    void LoadNonDestructibles()
     {
-        if (this._tilemapNonDes != null) return;
-        this._tilemapNonDes = transform.Find("Non-Destructibles").GetComponent<Tilemap>();
+        if (this._nonDestructibles != null) return;
+        this._nonDestructibles = transform.Find("Non-Destructibles").GetComponent<Tilemap>();
         Debug.LogWarning(transform.name + ": LoadTilemapNonDes", gameObject);
     }
 

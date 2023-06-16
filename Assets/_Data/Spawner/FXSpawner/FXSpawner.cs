@@ -23,7 +23,7 @@ public class FXSpawner : Spawner
 
     void GetBombTilePosition()
     {
-        this._bombPosTilemapGround = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgOverWalls.WorldToCell(this._bombPosition);
+        this._bombPosTilemapGround = this.spawnerCtrl.GameCtrl.GridSystemCtrl.BgOverWalls.WorldToCell(this._bombPosition);
     }
 
     public virtual void Spawning()
@@ -70,7 +70,7 @@ public class FXSpawner : Spawner
     {
         if(this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
         
-        TileBase tile = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapNonDes.GetTile(spawnPosition);
+        TileBase tile = this.spawnerCtrl.GameCtrl.GridSystemCtrl.NonDestructibles.GetTile(spawnPosition);
         if (tile == null) return false;
 
         this._spawnDirections[direction] = true;
