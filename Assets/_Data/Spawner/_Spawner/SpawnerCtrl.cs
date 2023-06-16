@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SpawnerCtrl : BaseCtrl
 {
-    [SerializeField] private SpawnPointsInWalls _spawnPointsInWalls;
-    public SpawnPointsInWalls SpawnPointsInWalls => _spawnPointsInWalls;
+    [SerializeField] private SpawnPointsCtrl _spawnPointsCtrl;
+    public SpawnPointsCtrl SpawnPointsCtrl => _spawnPointsCtrl;
 
     [SerializeField] private BombSpawner _bombSpawner;
     public BombSpawner BombSpawner => _bombSpawner;
@@ -14,16 +14,16 @@ public class SpawnerCtrl : BaseCtrl
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadSpawnPointsInWalls();
+        this.LoadSpawnPointsCtrl();
         this.LoadBombSpawner();
         this.LoadFXSpawner();
     }
 
-    void LoadSpawnPointsInWalls()
+    void LoadSpawnPointsCtrl()
     {
-        if (this._spawnPointsInWalls != null) return;
-        this._spawnPointsInWalls = GetComponentInChildren<SpawnPointsInWalls>();
-        Debug.LogWarning(transform.name + ": LoadSpawnPointsInWalls", gameObject);
+        if (this._spawnPointsCtrl != null) return;
+        this._spawnPointsCtrl = GetComponentInChildren<SpawnPointsCtrl>();
+        Debug.LogWarning(transform.name + ": LoadSpawnPointsCtrl", gameObject);
     }
 
     void LoadBombSpawner()

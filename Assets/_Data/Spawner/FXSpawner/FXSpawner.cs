@@ -62,7 +62,7 @@ public class FXSpawner : Spawner
 
     bool CheckTilemapWalls(Vector3Int spawnPosition)
     {
-        if (!this.spawnerCtrl.SpawnPointsInWalls.CheckSpawnPoints(spawnPosition)) return true;
+        if (!this.spawnerCtrl.SpawnPointsCtrl.SpawnPointsInWalls.CheckSpawnPoints(spawnPosition)) return true;
         return false;
     }
     
@@ -70,7 +70,7 @@ public class FXSpawner : Spawner
     {
         if(this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
         
-        TileBase tile = this.spawnerCtrl.GameCtrl.GridSystemCtrl.NonDestructiblesCtrl.NonDestructibles.GetTile(spawnPosition);
+        TileBase tile = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapNonDes.GetTile(spawnPosition);
         if (tile == null) return false;
 
         this._spawnDirections[direction] = true;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class SpawnPointsInWalls : BaseSpawner
+public class SpawnPointsInWalls : BaseSpawnPoints
 {
     [SerializeField] private List<Vector3Int> spawnPointsTile = new List<Vector3Int>();
     public List<Vector3Int> SpawnPointsTile => spawnPointsTile;
@@ -12,14 +12,14 @@ public class SpawnPointsInWalls : BaseSpawner
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        ScanTileMap();
+        this.ScanTileMap();
     }
 
     void ScanTileMap()
     {
-        spawnPointsTile.Clear();
-        spawnPointsPos.Clear();
-        Tilemap tilemap = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgInWalls;
+        this.spawnPointsTile.Clear();
+        this.spawnPointsPos.Clear();
+        Tilemap tilemap = this.SpawnPointsCtrl.SpawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgInWalls;
         BoundsInt bounds = tilemap.cellBounds;
 
         for (int x = bounds.xMin; x < bounds.xMax; x++)
@@ -27,6 +27,8 @@ public class SpawnPointsInWalls : BaseSpawner
             for (int y = bounds.yMin; y < bounds.yMax; y++)
             {
                 Vector3Int tilePos = new Vector3Int(x, y, 0);
+                TileBase tile = tilemap.GetTile(tilePos);
+                if (tile == null) continue;
                 spawnPointsTile.Add(tilePos);
 
                 Vector3 worldPos = tilemap.GetCellCenterWorld(tilePos);
@@ -37,7 +39,7 @@ public class SpawnPointsInWalls : BaseSpawner
 
     public bool CheckSpawnPoints(Vector3Int pos)
     {
-        if(spawnPointsTile.Contains(pos)) return true;
+        if(this.spawnPointsTile.Contains(pos)) return true;
         return false;
     }
 }
