@@ -1,20 +1,31 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class FXSpawner : Spawner
 {
     [Header("FX Spawner")]
 
-    public static string fx1 = "FX_1";
-
     [SerializeField] private int fireLength = 2;
+    [SerializeField] private List<Vector3> _spawnPosition = new List<Vector3>();
+    [SerializeField] private Dictionary<Vector3Int, bool> _spawnDirections = new Dictionary<Vector3Int, bool>();
+
     private Vector3 _bombPosition;
     private Vector3Int _bombPosTilemapGround;
     private Vector3 offsetCenter = new Vector3(0.5f, 0, 0);
+    private Vector3 offsetTilemap = new Vector3(0.5f, 0.5f, 0);
 
-    private Dictionary<Vector3Int, bool> _spawnDirections = new Dictionary<Vector3Int, bool>();
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadSpawnPosition();
+    }
 
+    void LoadSpawnPosition()
+    {
+        this._spawnPosition = this.spawnerCtrl.SpawnPointsCtrl.SpawnPointsCollider.SpawnPoints;
+    }
     public void GetBombPosition(Vector3 bombPos)
     {
         this._bombPosition = bombPos;
@@ -23,7 +34,7 @@ public class FXSpawner : Spawner
 
     void GetBombTilePosition()
     {
-        this._bombPosTilemapGround = this.spawnerCtrl.GameCtrl.GridSystemCtrl.TilemapBgOverWalls.WorldToCell(this._bombPosition);
+        this._bombPosTilemapGround = this.spawnerCtrl.GameCtrl.GridSystemCtrl.BgOverWalls.WorldToCell(this._bombPosition);
     }
 
     public virtual void Spawning()
@@ -47,9 +58,8 @@ public class FXSpawner : Spawner
         for (int i = 1; i <= this.fireLength; i++)
         {
             Vector3Int spawnPosition = this._bombPosTilemapGround + (direction * i);
-            if (this.CheckTilemapWalls(spawnPosition)) continue;
             if (this.CheckTilemapObstacle(spawnPosition, direction)) continue;
-            SpawnFX(spawnPosition + this.offsetCenter);
+            this.SpawnFX(spawnPosition + this.offsetCenter);
         }
     }
 
@@ -59,22 +69,37 @@ public class FXSpawner : Spawner
         Transform obj = this.Spawn(prefab, pos, transform.rotation);
         obj.gameObject.SetActive(true);
     }
-
-    bool CheckTilemapWalls(Vector3Int spawnPosition)
-    {
-        if (!this.spawnerCtrl.SpawnPointsInWalls.CheckSpawnPoints(spawnPosition)) return true;
-        return false;
-    }
     
     bool CheckTilemapObstacle(Vector3Int spawnPosition, Vector3Int direction)
     {
-        if(this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
-        
-        TileBase tile = this.spawnerCtrl.GameCtrl.GridSystemCtrl.NonDestructiblesCtrl.NonDestructibles.GetTile(spawnPosition);
-        if (tile == null) return false;
+        if (this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
 
+        if (!this._spawnPosition.Contains(spawnPosition + this.offsetTilemap)) return false;
+        this.CheckDestructibles(spawnPosition);
         this._spawnDirections[direction] = true;
-        
+
         return true;
+    }
+
+    void CheckDestructibles(Vector3Int spawnPosition)
+    {
+        Tilemap tilemap = this.spawnerCtrl.GameCtrl.GridSystemCtrl.Destructibles;
+        Vector3Int cellPosition = tilemap.WorldToCell(spawnPosition);
+        TileBase tile = tilemap.GetTile(cellPosition);
+        if (tile == null) return;
+        tilemap.SetTile(cellPosition, null);
+        this.OffCollider(spawnPosition);
+    }
+
+    void OffCollider(Vector3Int spawnPosition)
+    {
+        List<Transform> colliders = this.spawnerCtrl.ColliderSpawner.Colliders;
+        Vector3 pos = spawnPosition + this.offsetTilemap;
+        foreach (Transform collider in  colliders)
+        {
+            if (collider.position != pos) continue;
+            collider.gameObject.SetActive(false);
+            this.SpawnFX(spawnPosition + this.offsetCenter);
+        }
     }
 }

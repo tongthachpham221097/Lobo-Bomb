@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SpawnerCtrl : BaseCtrl
 {
-    [SerializeField] private SpawnPointsInWalls _spawnPointsInWalls;
-    public SpawnPointsInWalls SpawnPointsInWalls => _spawnPointsInWalls;
+    [SerializeField] private SpawnPointsCtrl _spawnPointsCtrl;
+    public SpawnPointsCtrl SpawnPointsCtrl => _spawnPointsCtrl;
 
     [SerializeField] private BombSpawner _bombSpawner;
     public BombSpawner BombSpawner => _bombSpawner;
@@ -11,19 +11,23 @@ public class SpawnerCtrl : BaseCtrl
     [SerializeField] private FXSpawner _fxSpawner;
     public FXSpawner FXSpawner => _fxSpawner;
 
+    [SerializeField] private ColliderSpawner _colliderSpawner;
+    public ColliderSpawner ColliderSpawner => _colliderSpawner;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadSpawnPointsInWalls();
+        this.LoadSpawnPointsCtrl();
         this.LoadBombSpawner();
         this.LoadFXSpawner();
+        this.LoadColliderSpawner();
     }
 
-    void LoadSpawnPointsInWalls()
+    void LoadSpawnPointsCtrl()
     {
-        if (this._spawnPointsInWalls != null) return;
-        this._spawnPointsInWalls = GetComponentInChildren<SpawnPointsInWalls>();
-        Debug.LogWarning(transform.name + ": LoadSpawnPointsInWalls", gameObject);
+        if (this._spawnPointsCtrl != null) return;
+        this._spawnPointsCtrl = GetComponentInChildren<SpawnPointsCtrl>();
+        Debug.LogWarning(transform.name + ": LoadSpawnPointsCtrl", gameObject);
     }
 
     void LoadBombSpawner()
@@ -38,5 +42,12 @@ public class SpawnerCtrl : BaseCtrl
         if (this._fxSpawner != null) return;
         this._fxSpawner = GetComponentInChildren<FXSpawner>();
         Debug.LogWarning(transform.name + ": LoadFXSpawner", gameObject);
+    }
+
+    void LoadColliderSpawner()
+    {
+        if (this._colliderSpawner != null) return;
+        this._colliderSpawner = GetComponentInChildren<ColliderSpawner>();
+        Debug.LogWarning(transform.name + ": LoadColliderSpawner", gameObject);
     }
 }
