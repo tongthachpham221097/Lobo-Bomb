@@ -5,29 +5,33 @@ using UnityEngine.Tilemaps;
 
 public class ColliderSpawner : Spawner
 {
-    [SerializeField] private List<Vector3> _spawnPoints = new List<Vector3>();
-
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadSpawnPoints();
         this.SpawnCollider();
-    }
-
-    void LoadSpawnPoints()
-    {
-        this._spawnPoints = this.spawnerCtrl.SpawnPointsCtrl.SpawnPointsCollider.SpawnPoints;
     }
 
     void SpawnCollider()
     {
-        foreach (Vector3 spawnPoint in _spawnPoints)
+        if (this.holder.childCount > 0) return;
+        foreach (Vector3 spawnPoint in this.spawnerCtrl.SpawnPointsCtrl.SpawnPointsCollider.SpawnPoints)
         {
             Transform prefab = this.RandomPrefab();
             Transform obj = this.Spawn(prefab, spawnPoint, transform.rotation);
             if (obj == null) return;
+            //if(this.IsObjectInHolder(obj)) return;
             obj.gameObject.SetActive(true);
         }
     }
 
+    bool IsObjectInHolder(Transform obj)
+    {
+        foreach(Transform collider in this.holder)
+        {
+            if(collider.position != obj.position) continue;
+            Destroy(obj.gameObject);
+            return true;
+        }
+        return false;
+    }
 }
