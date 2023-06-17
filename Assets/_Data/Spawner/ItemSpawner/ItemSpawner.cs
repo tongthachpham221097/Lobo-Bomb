@@ -5,18 +5,11 @@ using static UnityEditor.PlayerSettings;
 
 public class ItemSpawner : Spawner
 {
-    [SerializeField] private Vector3 _desPos = new Vector3();
-
-    public void GetDestructiblesPosition(Vector3 desPos)
+    public void ItemSpawning(Vector3 pos)
     {
-        this._desPos = desPos;
+        Transform prefab = this.RandomPrefab();
+        Transform obj = this.Spawn(prefab, pos, transform.rotation);
+        if (obj == null) return;
+        obj.gameObject.SetActive(true);
     }
-
-    //public void ItemSpawning()
-    //{
-    //    Transform prefab = this.RandomPrefab();
-    //    //Transform obj = this.Spawn(prefab, pos, rot);
-    //    if (obj == null) return;
-    //    obj.gameObject.SetActive(true);
-    //}    
 }

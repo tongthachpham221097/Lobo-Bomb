@@ -14,6 +14,9 @@ public class SpawnerCtrl : BaseCtrl
     [SerializeField] private ColliderSpawner _colliderSpawner;
     public ColliderSpawner ColliderSpawner => _colliderSpawner;
 
+    [SerializeField] private ItemSpawner _itemSpawner;
+    public ItemSpawner ItemSpawner => _itemSpawner;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -21,6 +24,7 @@ public class SpawnerCtrl : BaseCtrl
         this.LoadBombSpawner();
         this.LoadFXSpawnerCtrl();
         this.LoadColliderSpawner();
+        this.LoadItemSpawner();
     }
 
     void LoadSpawnPointsCtrl()
@@ -49,5 +53,12 @@ public class SpawnerCtrl : BaseCtrl
         if (this._colliderSpawner != null) return;
         this._colliderSpawner = GetComponentInChildren<ColliderSpawner>();
         Debug.LogWarning(transform.name + ": LoadColliderSpawner", gameObject);
+    }
+
+    void LoadItemSpawner()
+    {
+        if (this._itemSpawner != null) return;
+        this._itemSpawner = GetComponentInChildren<ItemSpawner>();
+        Debug.LogWarning(transform.name + ": LoadItemSpawner", gameObject);
     }
 }

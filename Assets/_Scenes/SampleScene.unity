@@ -2928,7 +2928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 244852580}
   m_Layer: 0
-  m_Name: Fire
+  m_Name: ItemFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3284,7 +3284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 324615611}
   m_Layer: 0
-  m_Name: Shoe
+  m_Name: ItemShoe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3298,7 +3298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324615610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.08, y: -0.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1371361003}
@@ -3859,7 +3859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &394023118
 Transform:
   m_ObjectHideFlags: 0
@@ -3899,7 +3899,6 @@ MonoBehaviour:
   - {fileID: 244852580}
   - {fileID: 593479719}
   poolObjs: []
-  _desPos: {x: 0, y: 0, z: 0}
 --- !u!1 &397799204
 GameObject:
   m_ObjectHideFlags: 0
@@ -5138,7 +5137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 593479719}
   m_Layer: 0
-  m_Name: Hp
+  m_Name: ItemHp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11489,6 +11488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1375426857}
+  - component: {fileID: 1375426858}
   m_Layer: 0
   m_Name: Despawn
   m_TagString: Untagged
@@ -11510,6 +11510,19 @@ Transform:
   m_Father: {fileID: 1667818499}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1375426858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375426856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93aecfd9bd69e54dbd427b443cafb53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerCtrl: {fileID: 1513979978}
 --- !u!1 &1391253495
 GameObject:
   m_ObjectHideFlags: 0
@@ -12123,6 +12136,7 @@ MonoBehaviour:
   _bombSpawner: {fileID: 2052221709}
   _fxSpawnerCtrl: {fileID: 1471071418}
   _colliderSpawner: {fileID: 1352158727}
+  _itemSpawner: {fileID: 394023119}
 --- !u!1 &1515636345
 GameObject:
   m_ObjectHideFlags: 0
@@ -14304,7 +14318,7 @@ Transform:
   m_GameObject: {fileID: 1753331129}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 244852580}
   m_RootOrder: 0
@@ -14349,15 +14363,15 @@ SpriteRenderer:
   m_SortingLayerID: -1914613505
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b922739701aefe34db54a9f8dae11101, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0972ac730969a7f4ba92c5a39843727e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 5.77, y: 4.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1763353072
