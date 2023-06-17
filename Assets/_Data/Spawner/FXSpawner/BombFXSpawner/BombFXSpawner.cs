@@ -39,7 +39,7 @@ public class BombFXSpawner : Spawner
 
     public virtual void Spawning()
     {
-        this.SpawnFX(this._bombPosTilemapGround + this.offsetCenter);
+        this.BombSpawnFX(this._bombPosTilemapGround + this.offsetCenter);
         this.SpawnFXInAllDirections();
     }
 
@@ -59,11 +59,11 @@ public class BombFXSpawner : Spawner
         {
             Vector3Int spawnPosition = this._bombPosTilemapGround + (direction * i);
             if (this.CheckTilemapObstacle(spawnPosition, direction)) continue;
-            this.SpawnFX(spawnPosition + this.offsetCenter);
+            this.BombSpawnFX(spawnPosition + this.offsetCenter);
         }
     }
 
-    void SpawnFX(Vector3 pos)
+    void BombSpawnFX(Vector3 pos)
     {
         Transform prefab = this.RandomPrefab();
         Transform obj = this.Spawn(prefab, pos, transform.rotation);
@@ -88,6 +88,7 @@ public class BombFXSpawner : Spawner
         TileBase tile = tilemap.GetTile(cellPosition);
         if (tile == null) return;
         tilemap.SetTile(cellPosition, null);
+        this.spawnerCtrl.FXSpawnerCtrl.DesFXSpawner.DesFXspawning(spawnPosition + this.offsetCenter);
         this.ColliderDespawn(spawnPosition);
     }
 
@@ -98,7 +99,7 @@ public class BombFXSpawner : Spawner
         {
             if (collider.position != pos) continue;
             this.Despawn(collider);
-            this.SpawnFX(spawnPosition + this.offsetCenter);
+            this.BombSpawnFX(spawnPosition + this.offsetCenter);
         }
     }
 

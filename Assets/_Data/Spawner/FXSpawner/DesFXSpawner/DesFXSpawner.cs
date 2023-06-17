@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
-public class DesFXSpawner : MonoBehaviour
+public class DesFXSpawner : Spawner
 {
-    // Start is called before the first frame update
-    void Start()
+    public void DesFXspawning(Vector3 pos)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Transform prefab = this.RandomPrefab();
+        Transform obj = this.Spawn(prefab, pos, transform.rotation);
+        obj.gameObject.SetActive(true);
     }
 }
