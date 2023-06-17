@@ -13000,7 +13000,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1667818499}
   m_Layer: 0
-  m_Name: Prefab_1
+  m_Name: DesFX_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14093,7 +14093,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1722614233}
   m_Layer: 0
-  m_Name: FX_1
+  m_Name: BombFX_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
