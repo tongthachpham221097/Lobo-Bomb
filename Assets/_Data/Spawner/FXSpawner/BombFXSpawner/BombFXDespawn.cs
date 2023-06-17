@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FXDespawn : BaseSpawner
+public class BombFXDespawn : BaseSpawner
 {
     [SerializeField] protected float timeDelayDespawn = 3f;
 
@@ -13,6 +13,7 @@ public class FXDespawn : BaseSpawner
 
     void FXDespawning()
     {
-        this.spawnerCtrl.FXSpawner.Despawn(transform.parent);
+        this.spawnerCtrl.FXSpawnerCtrl.BombFXSpawner.Despawn(transform.parent);
+        //this.Despawn(transform.parent);
     }
 }

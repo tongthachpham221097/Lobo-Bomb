@@ -6,15 +6,12 @@ using UnityEngine.Tilemaps;
 public class ColliderSpawner : Spawner
 {
     [SerializeField] private List<Vector3> _spawnPoints = new List<Vector3>();
-    [SerializeField] private List<Transform> colliders = new List<Transform>();
-    public List<Transform> Colliders => colliders;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadSpawnPoints();
         this.SpawnCollider();
-        this.LoadColliders();
     }
 
     void LoadSpawnPoints()
@@ -33,11 +30,4 @@ public class ColliderSpawner : Spawner
         }
     }
 
-    void LoadColliders()
-    {
-        foreach(Transform collider in this.holder)
-        {
-            this.colliders.Add(collider);
-        }
-    }
 }

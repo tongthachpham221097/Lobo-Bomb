@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
-public class FXSpawner : Spawner
+public class BombFXSpawner : Spawner
 {
     [Header("FX Spawner")]
 
@@ -88,18 +88,18 @@ public class FXSpawner : Spawner
         TileBase tile = tilemap.GetTile(cellPosition);
         if (tile == null) return;
         tilemap.SetTile(cellPosition, null);
-        this.OffCollider(spawnPosition);
+        this.ColliderDespawn(spawnPosition);
     }
 
-    void OffCollider(Vector3Int spawnPosition)
+    void ColliderDespawn(Vector3Int spawnPosition)
     {
-        List<Transform> colliders = this.spawnerCtrl.ColliderSpawner.Colliders;
         Vector3 pos = spawnPosition + this.offsetTilemap;
-        foreach (Transform collider in  colliders)
+        foreach (Transform collider in this.spawnerCtrl.ColliderSpawner.Holder)
         {
             if (collider.position != pos) continue;
-            collider.gameObject.SetActive(false);
+            this.Despawn(collider);
             this.SpawnFX(spawnPosition + this.offsetCenter);
         }
     }
+
 }
