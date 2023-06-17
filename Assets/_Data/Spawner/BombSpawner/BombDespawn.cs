@@ -12,7 +12,7 @@ public class BombDespawn : BaseSpawner
     void BombDespawning()
     {
         this.spawnerCtrl.BombSpawner.Despawn(transform.parent);
-        this.spawnerCtrl.FXSpawner.GetBombPosition(transform.parent.position);
-        this.spawnerCtrl.FXSpawner.Spawning();
+        this.spawnerCtrl.FXSpawnerCtrl.BombFXSpawner.GetBombPosition(transform.parent.position);
+        this.spawnerCtrl.FXSpawnerCtrl.BombFXSpawner.Spawning();
     }
 }

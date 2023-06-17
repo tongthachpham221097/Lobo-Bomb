@@ -8,19 +8,23 @@ public class SpawnerCtrl : BaseCtrl
     [SerializeField] private BombSpawner _bombSpawner;
     public BombSpawner BombSpawner => _bombSpawner;
 
-    [SerializeField] private FXSpawner _fxSpawner;
-    public FXSpawner FXSpawner => _fxSpawner;
+    [SerializeField] private FXSpawnerCtrl _fxSpawnerCtrl;
+    public FXSpawnerCtrl FXSpawnerCtrl => _fxSpawnerCtrl;
 
     [SerializeField] private ColliderSpawner _colliderSpawner;
     public ColliderSpawner ColliderSpawner => _colliderSpawner;
+
+    [SerializeField] private ItemSpawner _itemSpawner;
+    public ItemSpawner ItemSpawner => _itemSpawner;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadSpawnPointsCtrl();
         this.LoadBombSpawner();
-        this.LoadFXSpawner();
+        this.LoadFXSpawnerCtrl();
         this.LoadColliderSpawner();
+        this.LoadItemSpawner();
     }
 
     void LoadSpawnPointsCtrl()
@@ -37,11 +41,11 @@ public class SpawnerCtrl : BaseCtrl
         Debug.LogWarning(transform.name + ": LoadBombSpawner", gameObject);
     }
 
-    void LoadFXSpawner()
+    void LoadFXSpawnerCtrl()
     {
-        if (this._fxSpawner != null) return;
-        this._fxSpawner = GetComponentInChildren<FXSpawner>();
-        Debug.LogWarning(transform.name + ": LoadFXSpawner", gameObject);
+        if (this._fxSpawnerCtrl != null) return;
+        this._fxSpawnerCtrl = GetComponentInChildren<FXSpawnerCtrl>();
+        Debug.LogWarning(transform.name + ": LoadFXSpawnerCtrl", gameObject);
     }
 
     void LoadColliderSpawner()
@@ -49,5 +53,12 @@ public class SpawnerCtrl : BaseCtrl
         if (this._colliderSpawner != null) return;
         this._colliderSpawner = GetComponentInChildren<ColliderSpawner>();
         Debug.LogWarning(transform.name + ": LoadColliderSpawner", gameObject);
+    }
+
+    void LoadItemSpawner()
+    {
+        if (this._itemSpawner != null) return;
+        this._itemSpawner = GetComponentInChildren<ItemSpawner>();
+        Debug.LogWarning(transform.name + ": LoadItemSpawner", gameObject);
     }
 }

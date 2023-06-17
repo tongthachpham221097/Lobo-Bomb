@@ -4,48 +4,41 @@ using UnityEngine;
 
 public class PlayerCtrl : BaseCtrl
 {
-    [SerializeField] protected CharacterController characterController;
-    public CharacterController CharacterController => characterController;
+    [SerializeField] private AvatarCtrl _avatarCtrl;
+    public AvatarCtrl AvatarCtrl => _avatarCtrl;
 
-    [SerializeField] protected Animator animator;
-    public Animator Animator => animator;
+    [SerializeField] private PlayerMovement _playerMovement;
+    public PlayerMovement PlayerMovement => _playerMovement;
 
-    [SerializeField] protected PlayerMovement playerMovement;
-    public PlayerMovement PlayerMovement => playerMovement;
-
-    [SerializeField] protected AvatarCtrl avatarCtrl;
-    public AvatarCtrl AvatarCtrl => avatarCtrl;
+    [SerializeField] private PlayerAnimation _playerAnimation;
+    public PlayerAnimation PlayerAnimation => _playerAnimation;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadAnimator();
-        this.LoadCharacterController();
-        this.LoadPlayerMovement();
         this.LoadAvatarCtrl();
+        this.LoadPlayerMovement();
+        this.LoadPlayerAnimation();
     }
-    protected virtual void LoadAnimator()
+
+    void LoadPlayerMovement()
     {
-        if (this.animator != null) return;
-        this.animator = transform.Find("AvatarCtrl").GetComponent<Animator>();
-        Debug.Log(transform.name + ": LoadAnimator", gameObject);
-    }
-    protected virtual void LoadCharacterController()
-    {
-        if (this.characterController != null) return;
-        this.characterController = transform.Find("AvatarCtrl").GetComponent<CharacterController>();
-        Debug.Log(transform.name + ": LoadCharacterController", gameObject);
-    }
-    protected virtual void LoadPlayerMovement()
-    {
-        if (this.playerMovement != null) return;
-        this.playerMovement = GetComponentInChildren<PlayerMovement>();
+        if (this._playerMovement != null) return;
+        this._playerMovement = GetComponentInChildren<PlayerMovement>();
         Debug.Log(transform.name + ": LoadPlayerMovement", gameObject);
     }
-    protected virtual void LoadAvatarCtrl()
+
+    void LoadAvatarCtrl()
     {
-        if (this.avatarCtrl != null) return;
-        this.avatarCtrl = GetComponentInChildren<AvatarCtrl>();
+        if (this._avatarCtrl != null) return;
+        this._avatarCtrl = GetComponentInChildren<AvatarCtrl>();
         Debug.Log(transform.name + ": LoadAvatarCtrl", gameObject);
+    }
+
+    void LoadPlayerAnimation()
+    {
+        if (this._playerAnimation != null) return;
+        this._playerAnimation = GetComponentInChildren<PlayerAnimation>();
+        Debug.Log(transform.name + ": LoadPlayerAnimation", gameObject);
     }
 }

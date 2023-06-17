@@ -6,6 +6,7 @@ public abstract class Spawner : BaseSpawner
 {
     [Header("Spawner")]
     [SerializeField] protected Transform holder;
+    public Transform Holder => holder;
 
     [SerializeField] protected int spawnedCount = 0;
     [SerializeField] protected int maxSpawn = 100;

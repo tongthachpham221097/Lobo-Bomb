@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
-public class FXSpawner : Spawner
+public class BombFXSpawner : Spawner
 {
     [Header("FX Spawner")]
 
@@ -39,7 +39,7 @@ public class FXSpawner : Spawner
 
     public virtual void Spawning()
     {
-        this.SpawnFX(this._bombPosTilemapGround + this.offsetCenter);
+        this.BombSpawnFX(this._bombPosTilemapGround + this.offsetCenter);
         this.SpawnFXInAllDirections();
     }
 
@@ -59,11 +59,11 @@ public class FXSpawner : Spawner
         {
             Vector3Int spawnPosition = this._bombPosTilemapGround + (direction * i);
             if (this.CheckTilemapObstacle(spawnPosition, direction)) continue;
-            this.SpawnFX(spawnPosition + this.offsetCenter);
+            this.BombSpawnFX(spawnPosition + this.offsetCenter);
         }
     }
 
-    void SpawnFX(Vector3 pos)
+    void BombSpawnFX(Vector3 pos)
     {
         Transform prefab = this.RandomPrefab();
         Transform obj = this.Spawn(prefab, pos, transform.rotation);
@@ -88,18 +88,19 @@ public class FXSpawner : Spawner
         TileBase tile = tilemap.GetTile(cellPosition);
         if (tile == null) return;
         tilemap.SetTile(cellPosition, null);
-        this.OffCollider(spawnPosition);
+        this.spawnerCtrl.FXSpawnerCtrl.DesFXSpawner.DesFXspawning(spawnPosition + this.offsetCenter);
+        this.ColliderDespawn(spawnPosition);
     }
 
-    void OffCollider(Vector3Int spawnPosition)
+    void ColliderDespawn(Vector3Int spawnPosition)
     {
-        List<Transform> colliders = this.spawnerCtrl.ColliderSpawner.Colliders;
         Vector3 pos = spawnPosition + this.offsetTilemap;
-        foreach (Transform collider in  colliders)
+        foreach (Transform collider in this.spawnerCtrl.ColliderSpawner.Holder)
         {
             if (collider.position != pos) continue;
-            collider.gameObject.SetActive(false);
-            this.SpawnFX(spawnPosition + this.offsetCenter);
+            this.Despawn(collider);
+            this.BombSpawnFX(spawnPosition + this.offsetCenter);
         }
     }
+
 }

@@ -19,6 +19,7 @@ public class SpawnPointsCollider : BaseSpawnPoints
 
     void LoadTilemap()
     {
+        if (this._tilemaps.Count > 0) return;
         this._tilemaps.Add(this.SpawnPointsCtrl.SpawnerCtrl.GameCtrl.GridSystemCtrl.Walls);
         this._tilemaps.Add(this.SpawnPointsCtrl.SpawnerCtrl.GameCtrl.GridSystemCtrl.NonDestructibles);
         this._tilemaps.Add(this.SpawnPointsCtrl.SpawnerCtrl.GameCtrl.GridSystemCtrl.Destructibles);
@@ -26,7 +27,7 @@ public class SpawnPointsCollider : BaseSpawnPoints
 
     void LoadSpawnPoints()
     {
-        this._spawnPoints.Clear();
+        if (this._spawnPoints.Count > 0) return;
         foreach (var tilemap in this._tilemaps)
         {
             this.ScanTileMap(tilemap);
