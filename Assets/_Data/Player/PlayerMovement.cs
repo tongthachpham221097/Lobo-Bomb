@@ -21,7 +21,7 @@ public class PlayerMovement : BasePlayer
     protected virtual void Moving()
     {
         Vector3 move = new Vector3(horizontalMove, verticalMove, 0f) * this.runSpeed;
-        this.playerCtrl.CharacterController.Move(move * Time.fixedDeltaTime);
+        this.playerCtrl.AvatarCtrl.CharacterController.Move(move * Time.fixedDeltaTime);
     }
     protected virtual void HorizontalRotate()
     {

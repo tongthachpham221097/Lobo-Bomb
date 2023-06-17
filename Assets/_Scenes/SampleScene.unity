@@ -3192,6 +3192,7 @@ Transform:
   - {fileID: 1105300360}
   - {fileID: 895090328}
   - {fileID: 1161315670}
+  - {fileID: 884309100}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3208,10 +3209,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCtrl: {fileID: 367412888}
-  characterController: {fileID: 1105300361}
-  animator: {fileID: 1105300357}
-  playerMovement: {fileID: 895090329}
-  avatarCtrl: {fileID: 1105300358}
+  _avatarCtrl: {fileID: 1105300358}
+  _playerMovement: {fileID: 895090329}
+  _playerAnimation: {fileID: 1161315671}
 --- !u!1 &318956455
 GameObject:
   m_ObjectHideFlags: 0
@@ -6065,6 +6065,52 @@ Transform:
   m_Father: {fileID: 2131398919}
   m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &884309099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 884309100}
+  - component: {fileID: 884309101}
+  m_Layer: 0
+  m_Name: PlayerDamageReceiver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &884309100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884309099}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 304550395}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &884309101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884309099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a595cbdee1ad347960df558fc29c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameCtrl: {fileID: 367412888}
+  hp: 3
+  isDead: 0
 --- !u!1 &888625009
 GameObject:
   m_ObjectHideFlags: 0
@@ -7465,6 +7511,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 304550396}
+  _characterController: {fileID: 1105300361}
+  _animator: {fileID: 1105300357}
 --- !u!212 &1105300359
 SpriteRenderer:
   m_ObjectHideFlags: 0
