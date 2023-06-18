@@ -4,7 +4,7 @@ public class PlayerMovement : BasePlayer
 {
     [Header("Player Movement")]
 
-    [SerializeField] protected float runSpeed = 1f;
+    [SerializeField] protected float runSpeed = 2f;
     [SerializeField] protected float horizontalMove;
     [SerializeField] protected float verticalMove;
     protected virtual void FixedUpdate()

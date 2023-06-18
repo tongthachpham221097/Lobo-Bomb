@@ -2492,7 +2492,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnerCtrl: {fileID: 1513979978}
   _boxCollider: {fileID: 1800685372}
-  _timeDelayDespawn: 10
+  _timeDelayDespawn: 3
+  timeDelayCollider: 1
 --- !u!1 &158555098
 GameObject:
   m_ObjectHideFlags: 0
@@ -6200,7 +6201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 304550396}
-  runSpeed: 1
+  runSpeed: 2
   horizontalMove: 0
   verticalMove: 0
 --- !u!1 &935053203
@@ -16031,7 +16032,6 @@ MonoBehaviour:
   poolObjs: []
   playerTilemapPos: {x: 0, y: 0, z: 0}
   offsetCenter: {x: 0.5, y: 0, z: 0}
-  timeDelayCollider: 1
 --- !u!1 &2062409252
 GameObject:
   m_ObjectHideFlags: 0

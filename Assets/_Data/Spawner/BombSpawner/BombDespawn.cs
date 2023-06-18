@@ -5,6 +5,7 @@ public class BombDespawn : BaseSpawner
     [SerializeField] private BoxCollider _boxCollider;
 
     [SerializeField] private float _timeDelayDespawn = 3f;
+    [SerializeField] private float timeDelayCollider = 1f;
 
     protected override void LoadComponents()
     {
@@ -21,6 +22,7 @@ public class BombDespawn : BaseSpawner
     private void OnEnable()
     {
         Invoke(nameof(this.BombDespawning), this._timeDelayDespawn);
+        Invoke(nameof(this.OnColliderOfBomb), this.timeDelayCollider);
     }
 
     void BombDespawning()
@@ -30,6 +32,11 @@ public class BombDespawn : BaseSpawner
         this.spawnerCtrl.FXSpawnerCtrl.BombFXSpawner.GetBombPosition(transform.parent.position);
         this.spawnerCtrl.FXSpawnerCtrl.BombFXSpawner.Spawning();
     }
+
+    void OnColliderOfBomb()
+    {
+        this._boxCollider.enabled = true;
+    } 
 
     void OffColliderOfBomb()
     {
