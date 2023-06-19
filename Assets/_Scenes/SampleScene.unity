@@ -2491,7 +2491,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerCtrl: {fileID: 1513979978}
-  timeDelayDespawn: 3
+  _boxCollider: {fileID: 1800685372}
+  _timeDelayDespawn: 3
+  timeDelayCollider: 1
 --- !u!1 &158555098
 GameObject:
   m_ObjectHideFlags: 0
@@ -6199,7 +6201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCtrl: {fileID: 304550396}
-  runSpeed: 1
+  runSpeed: 2
   horizontalMove: 0
   verticalMove: 0
 --- !u!1 &935053203
@@ -7591,12 +7593,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 0.5
-  m_Radius: 0.4
+  m_Radius: 0.35
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &1112540331
 GameObject:
   m_ObjectHideFlags: 0
@@ -11288,7 +11290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnerCtrl: {fileID: 1513979978}
   holder: {fileID: 2131398919}
-  spawnedCount: 100
+  spawnedCount: 0
   maxSpawn: 100
   timer: 0
   timeDelay: 0
@@ -14614,6 +14616,7 @@ GameObject:
   - component: {fileID: 1800685369}
   - component: {fileID: 1800685371}
   - component: {fileID: 1800685370}
+  - component: {fileID: 1800685372}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -14707,6 +14710,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &1800685372
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800685368}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1804853098
 GameObject:
   m_ObjectHideFlags: 0
