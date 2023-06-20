@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FXSpawnerCtrl : BaseSpawner
 {
-    [Header("FXSpawnerCtrl")]
+    [Header("FX Spawner Ctrl")]
     [SerializeField] private BombFXSpawner _bombFXSpawner;
     public BombFXSpawner BombFXSpawner => _bombFXSpawner;
 

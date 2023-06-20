@@ -2,26 +2,19 @@ using UnityEngine;
 
 public class DamageSender : LoboMonoBehaviour
 {
-    [SerializeField] protected GameCtrl gameCtrl;
-    public GameCtrl GameCtrl => gameCtrl;
+    [Header("Damage Sender")]
+    [SerializeField] protected int damage = 1;
 
-    [SerializeField] protected int damage;
-
-    protected override void LoadComponents()
+    public virtual void Send(Transform obj)
     {
-        base.LoadComponents();
-        this.LoadGameCtrl();
+        DamageReceiver damageReceiver = obj.GetComponentInChildren<DamageReceiver>();
+        if (damageReceiver == null) return;
+        this.Send(damageReceiver);
     }
 
-    void LoadGameCtrl()
+    public virtual void Send(DamageReceiver damageReceiver)
     {
-        if (this.gameCtrl != null) return;
-        this.gameCtrl = FindAnyObjectByType<GameCtrl>();
-        Debug.Log(transform.name + ": LoadGameCtrl", gameObject);
+        damageReceiver.Deduct(this.damage);
     }
-    //public void Attack(GameObject target, int damage)
-    //{
-    //    target.GetComponentInChildren<DamageReceiver>()?.DamageReceive(damage);
-    //    Debug.Log("Attack");
-    //}
+
 }
