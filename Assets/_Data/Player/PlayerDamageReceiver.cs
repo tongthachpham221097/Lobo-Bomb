@@ -4,17 +4,31 @@ using UnityEngine;
 
 public class PlayerDamageReceiver : DamageReceiver
 {
+    [Header("Player Damage Receiver")]
+    [SerializeField] protected PlayerCtrl playerCtrl;
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadPlayerCtrl();
+    }
+
+    protected virtual void LoadPlayerCtrl()
+    {
+        if (this.playerCtrl != null) return;
+        this.playerCtrl = GetComponentInParent<PlayerCtrl>();
+        Debug.LogWarning(transform.name + ": LoadPlayerCtrl", gameObject);
+    }
+
     protected override void ResetValue()
     {
         base.ResetValue();
-        this.hp = 3;
+        this.hpMax = 3;
+        this.Reborn();
     }
-    private void Update()
+
+    protected override void OnDead()
     {
-        if (this.isDead) this.IsDead();
-    }
-    protected override void IsDead()
-    {
-        this.gameCtrl.PlayerCtrl.PlayerAnimation.SetIsDead();
+        this.playerCtrl.PlayerAnimation.SetIsDead();
     }
 }

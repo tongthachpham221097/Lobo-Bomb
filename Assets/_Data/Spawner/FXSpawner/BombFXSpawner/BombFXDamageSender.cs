@@ -1,47 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using static UnityEditor.PlayerSettings;
+
+[RequireComponent(typeof(BoxCollider))]
 
 public class BombFXDamageSender : DamageSender
 {
-    [SerializeField] private Tilemap _tilemap;
-    
-    protected override void ResetValue()
-    {
-        base.ResetValue();
-        this.damage = 1;
-    }
+    [Header("Bomb FX Damage Sender")]
+    [SerializeField] private FXSpawnerCtrl _fxSpawnerCtrl;
+    [SerializeField] private BoxCollider _boxCollider;
+    [SerializeField] protected float timeDelayCollider = 0.3f;
+
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadBgInWalls();
+        this.LoadFXSpawnerCtrl();
+        this.LoadBoxCollider();
     }
 
-    void LoadBgInWalls()
+    void LoadFXSpawnerCtrl()
     {
-        if (this._tilemap != null) return;
-        this._tilemap = this.GameCtrl.GridSystemCtrl.BgInWalls;
+        if (this._fxSpawnerCtrl != null) return;
+        this._fxSpawnerCtrl = GetComponentInParent<FXSpawnerCtrl>();
+        Debug.LogWarning(transform.name + ": LoadFXSpawnerCtrl", gameObject);
     }
 
-    public void CheckDamageSendPlayer(Vector3 pos)
+    void LoadBoxCollider()
     {
-        TileBase tileBombFX = this.GetTile(pos);
-        if (tileBombFX == null) return;
-        TileBase tilePlayer = this.GetTile(this.gameCtrl.PlayerCtrl.AvatarCtrl.transform.position);
-        if(tilePlayer == null) return;
-        if (tilePlayer != tileBombFX) return;
-        Debug.Log(this.gameCtrl.PlayerCtrl.AvatarCtrl.transform.position);
-        Debug.Log(pos);
-        //this.Attack(this.gameCtrl.PlayerCtrl.gameObject, damage);
+        if (this._boxCollider != null) return;
+        this._boxCollider = GetComponent<BoxCollider>();
+        this._boxCollider.isTrigger = true;
+        this._boxCollider.center = new Vector3(0, 0.5f, 0);
+        Debug.LogWarning(transform.name + ": LoadBoxCollider", gameObject);
     }
 
-    TileBase GetTile(Vector3 pos)
+    private void OnEnable()
     {
-        Vector3Int cellPosition = this._tilemap.WorldToCell(pos);
-        TileBase tile = _tilemap.GetTile(cellPosition);
-        return tile;
-    }    
+        this._boxCollider.enabled = true;
+        Invoke(nameof(this.OffBombFXDamageSender), this.timeDelayCollider);
+
+    }
+
+    void OffBombFXDamageSender()
+    {
+        this._boxCollider.enabled = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;     
+        this.Send(this._fxSpawnerCtrl.SpawnerCtrl.GameCtrl.PlayerCtrl.transform);
+    }
+
 }

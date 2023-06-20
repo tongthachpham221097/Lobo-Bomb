@@ -4,37 +4,54 @@ using UnityEngine;
 
 public abstract class DamageReceiver : LoboMonoBehaviour
 {
-    [Header("DamageReceiver")]
-    [SerializeField] protected GameCtrl gameCtrl;
+    [Header("Damage Receiver")]
 
-    [SerializeField] protected int hp;
+    [SerializeField] protected int hp = 1;
+    [SerializeField] protected int hpMax = 2;
     [SerializeField] protected bool isDead = false;
 
-    protected override void LoadComponents()
+    public int HP => hp;
+    public int HPMax => hpMax;
+
+    protected virtual void OnEnable()
     {
-        base.LoadComponents();
-        this.LoadGameCtrl();
+        this.Reborn();
     }
 
-    void LoadGameCtrl()
+    public virtual void Reborn()
     {
-        if (this.gameCtrl != null) return;
-        this.gameCtrl = FindAnyObjectByType<GameCtrl>();
-        Debug.Log(transform.name + ": LoadGameCtrl", gameObject);
+        this.hp = this.hpMax;
+        this.isDead = false;
     }
 
-    protected virtual void DamageReceive(int damage)
+    public virtual void Add(int add)
     {
-        this.hp -= damage;
-        this.CheckDead();
+        if (this.isDead) return;
+
+        this.hp += add;
+        if (this.hp > this.hpMax) this.hp = this.hpMax;
     }
-    
-    protected virtual void CheckDead()
+
+    public virtual void Deduct(int deduct)
     {
-        if (hp > 0) return;
+        if (this.isDead) return;
+
+        this.hp -= deduct;
+        if (this.hp < 0) this.hp = 0;
+        this.CheckIsDead();
+    }
+
+    public virtual bool IsDead()
+    {
+        return this.hp <= 0;
+    }
+
+    protected virtual void CheckIsDead()
+    {
+        if (!this.IsDead()) return;
         this.isDead = true;
-        this.IsDead();
+        this.OnDead();
     }
 
-    protected abstract void IsDead();
+    protected abstract void OnDead();
 }
