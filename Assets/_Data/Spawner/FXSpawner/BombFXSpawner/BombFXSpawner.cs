@@ -9,7 +9,6 @@ public class BombFXSpawner : Spawner
     [Header("FX Spawner")]
 
     [SerializeField] private int fireLength = 2;
-    [SerializeField] private List<Vector3> _spawnPosition = new List<Vector3>();
     [SerializeField] private Dictionary<Vector3Int, bool> _spawnDirections = new Dictionary<Vector3Int, bool>();
 
     private Vector3 _bombPosition;
@@ -17,16 +16,8 @@ public class BombFXSpawner : Spawner
     private Vector3 offsetCenter = new Vector3(0.5f, 0, 0);
     private Vector3 offsetTilemap = new Vector3(0.5f, 0.5f, 0);
 
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        this.LoadSpawnPosition();
-    }
+    private Transform _collider;
 
-    void LoadSpawnPosition()
-    {
-        this._spawnPosition = this.spawnerCtrl.SpawnPointsCtrl.SpawnPointsCollider.SpawnPoints;
-    }
     public void GetBombPosition(Vector3 bombPos)
     {
         this._bombPosition = bombPos;
@@ -75,16 +66,11 @@ public class BombFXSpawner : Spawner
     {
         if (this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
 
-        foreach (Transform collider in this.spawnerCtrl.ColliderSpawner.Holder)
-        {
-            if (collider.position != spawnPosition + this.offsetTilemap) continue;
-            if(!collider.gameObject.activeSelf) continue;
-            this.CheckDestructibles(spawnPosition);
-            this._spawnDirections[direction] = true;
-            return true;
-        }
-        
-        return false;
+        if(!this.CheckColliderSpawner(spawnPosition + this.offsetTilemap)) return false;
+        if (!this._collider.gameObject.activeSelf) return false;
+        this.CheckDestructibles(spawnPosition);
+        this._spawnDirections[direction] = true;
+        return true;
     }
 
     void CheckDestructibles(Vector3Int spawnPosition)
@@ -102,12 +88,20 @@ public class BombFXSpawner : Spawner
     void ColliderDespawn(Vector3Int spawnPosition)
     {
         Vector3 pos = spawnPosition + this.offsetTilemap;
+        if (!this.CheckColliderSpawner(pos)) return;
+        this.Despawn(this._collider);
+        this.BombSpawnFX(spawnPosition + this.offsetCenter);
+    }
+
+    bool CheckColliderSpawner(Vector3 pos)
+    {
         foreach (Transform collider in this.spawnerCtrl.ColliderSpawner.Holder)
         {
             if (collider.position != pos) continue;
-            this.Despawn(collider);
-            this.BombSpawnFX(spawnPosition + this.offsetCenter);
+            this._collider = collider;
+            return true;
         }
+        return false;
     }
 
     public void UpdateFireLength()
