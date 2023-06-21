@@ -52,6 +52,9 @@ TagManager:
   - name: BombFX
     uniqueID: 109320395
     locked: 0
+  - name: Enemy
+    uniqueID: 442593899
+    locked: 0
   - name: Player
     uniqueID: 2380353791
     locked: 0
