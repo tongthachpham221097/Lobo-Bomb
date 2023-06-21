@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tilemap-Walls
+  - BombFX
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: Wall-Tilemap
     uniqueID: 3038241251
+    locked: 0
+  - name: BombFX
+    uniqueID: 109320395
     locked: 0
   - name: Player
     uniqueID: 2380353791
