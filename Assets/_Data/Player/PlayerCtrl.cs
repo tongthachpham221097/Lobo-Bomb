@@ -13,12 +13,17 @@ public class PlayerCtrl : BaseCtrl
     [SerializeField] private PlayerAnimation _playerAnimation;
     public PlayerAnimation PlayerAnimation => _playerAnimation;
 
+    [SerializeField] private PlayerDamageReceiver _playerDamageReceiver;
+    public PlayerDamageReceiver PlayerDamageReceiver => _playerDamageReceiver;
+
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadAvatarCtrl();
         this.LoadPlayerMovement();
         this.LoadPlayerAnimation();
+        this.LoadPlayerDamageReceiver();
     }
 
     void LoadPlayerMovement()
@@ -40,5 +45,12 @@ public class PlayerCtrl : BaseCtrl
         if (this._playerAnimation != null) return;
         this._playerAnimation = GetComponentInChildren<PlayerAnimation>();
         Debug.Log(transform.name + ": LoadPlayerAnimation", gameObject);
+    }
+
+    void LoadPlayerDamageReceiver()
+    {
+        if (this._playerDamageReceiver != null) return;
+        this._playerDamageReceiver = GetComponentInChildren<PlayerDamageReceiver>();
+        Debug.Log(transform.name + ": LoadPlayerDamageReceiver", gameObject);
     }
 }

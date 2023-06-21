@@ -103,4 +103,8 @@ public class BombFXSpawner : Spawner
         }
     }
 
+    public void UpdateFireLength()
+    {
+        this.fireLength += 1;
+    }
 }

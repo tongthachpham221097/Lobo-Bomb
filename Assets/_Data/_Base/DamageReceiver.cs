@@ -24,7 +24,7 @@ public abstract class DamageReceiver : LoboMonoBehaviour
         this.isDead = false;
     }
 
-    public virtual void Add(int add)
+    public virtual void Add(int add = 1)
     {
         if (this.isDead) return;
 

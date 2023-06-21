@@ -34,4 +34,9 @@ public class PlayerMovement : BasePlayer
             this.playerCtrl.AvatarCtrl.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
+
+    public void UpdateRunSpeed()
+    {
+        this.runSpeed += 1f;
+    }
 }
