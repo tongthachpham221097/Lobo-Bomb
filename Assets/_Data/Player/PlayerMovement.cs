@@ -3,10 +3,12 @@ using UnityEngine;
 public class PlayerMovement : BasePlayer
 {
     [Header("Player Movement")]
-
-    [SerializeField] protected float runSpeed = 2f;
+    [SerializeField] protected float moveSpeed = 2f;
     [SerializeField] protected float horizontalMove;
     [SerializeField] protected float verticalMove;
+
+    public float MoveSpeed => moveSpeed;
+
     protected virtual void FixedUpdate()
     {
         this.GetInput();
@@ -20,7 +22,7 @@ public class PlayerMovement : BasePlayer
     }
     protected virtual void Moving()
     {
-        Vector3 move = new Vector3(horizontalMove, verticalMove, 0f) * this.runSpeed;
+        Vector3 move = new Vector3(horizontalMove, verticalMove, 0f) * this.moveSpeed;
         this.playerCtrl.AvatarCtrl.CharacterController.Move(move * Time.fixedDeltaTime);
     }
     protected virtual void HorizontalRotate()
@@ -37,6 +39,7 @@ public class PlayerMovement : BasePlayer
 
     public void UpdateRunSpeed()
     {
-        this.runSpeed += 1f;
+        this.moveSpeed += 1f;
+        if (this.moveSpeed >= 5) this.playerCtrl.PlayerAnimation.SetRun();
     }
 }

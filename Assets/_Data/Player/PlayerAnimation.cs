@@ -40,4 +40,9 @@ public class PlayerAnimation : BasePlayer
     {
         this.playerCtrl.AvatarCtrl.Animator.SetBool("isDead", true);
     }
+
+    public void SetRun()
+    {
+        this.playerCtrl.AvatarCtrl.Animator.SetBool("isRun", true);
+    }
 }
