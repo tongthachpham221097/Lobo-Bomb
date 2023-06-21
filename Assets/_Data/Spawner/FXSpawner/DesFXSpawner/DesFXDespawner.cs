@@ -6,7 +6,7 @@ public class DesFXDespawner : BaseSpawner
 {
     private void OnEnable()
     {
-        Invoke(nameof(this.DesFXDespawning), 1f);
+        Invoke(nameof(this.DesFXDespawning), 2f);
     }
 
     void DesFXDespawning()
