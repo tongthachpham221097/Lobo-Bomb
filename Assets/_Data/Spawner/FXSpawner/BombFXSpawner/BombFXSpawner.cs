@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
 
 public class BombFXSpawner : Spawner
 {
@@ -74,11 +75,16 @@ public class BombFXSpawner : Spawner
     {
         if (this._spawnDirections.ContainsKey(direction) && this._spawnDirections[direction] == true) return true;
 
-        if (!this._spawnPosition.Contains(spawnPosition + this.offsetTilemap)) return false;
-        this.CheckDestructibles(spawnPosition);
-        this._spawnDirections[direction] = true;
-
-        return true;
+        foreach (Transform collider in this.spawnerCtrl.ColliderSpawner.Holder)
+        {
+            if (collider.position != spawnPosition + this.offsetTilemap) continue;
+            if(!collider.gameObject.activeSelf) continue;
+            this.CheckDestructibles(spawnPosition);
+            this._spawnDirections[direction] = true;
+            return true;
+        }
+        
+        return false;
     }
 
     void CheckDestructibles(Vector3Int spawnPosition)
@@ -88,6 +94,7 @@ public class BombFXSpawner : Spawner
         TileBase tile = tilemap.GetTile(cellPosition);
         if (tile == null) return;
         tilemap.SetTile(cellPosition, null);
+
         this.spawnerCtrl.FXSpawnerCtrl.DesFXSpawner.DesFXspawning(spawnPosition + this.offsetCenter);
         this.ColliderDespawn(spawnPosition);
     }
