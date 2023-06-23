@@ -9,6 +9,7 @@ public class SpawnPointsCollider : BaseSpawnPoints
 
     [SerializeField] private List<Vector3> _spawnPoints = new List<Vector3>();
     public List<Vector3> SpawnPoints => _spawnPoints;
+    public List<Tilemap> Tilemaps => _tilemaps;
          
     protected override void LoadComponents()
     {
