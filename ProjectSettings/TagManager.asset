@@ -46,6 +46,9 @@ TagManager:
   - name: Tilemap-Obstacle
     uniqueID: 2792358863
     locked: 0
+  - name: Bomb
+    uniqueID: 4259376645
+    locked: 0
   - name: Wall-Tilemap
     uniqueID: 3038241251
     locked: 0
